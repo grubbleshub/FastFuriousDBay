@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin · DBay Drift Pickleball 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;500;600;700&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold:#F5C842;--neon-green:#39FF6A;--neon-pink:#FF3CAC;--red:#FF4545;
+    --bg:#0a0a0f;--bg2:#111118;--bg3:#1a1a24;
+    --border:rgba(255,255,255,0.08);--border-bright:rgba(255,255,255,0.18);
+    --text:#f0f0f0;--text-muted:rgba(240,240,240,0.5);--text-dim:rgba(240,240,240,0.28);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:'Barlow',sans-serif;}
+  body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px);pointer-events:none;z-index:9999;}
+
+  .site-header{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,69,69,0.25);padding:12px 24px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+  .logo-text{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:0.05em;color:var(--gold);line-height:1;}
+  .logo-sub{font-size:11px;color:var(--text-muted);font-family:'Barlow Condensed',sans-serif;letter-spacing:0.1em;text-transform:uppercase;}
+  .admin-badge{background:rgba(255,69,69,0.15);border:1px solid rgba(255,69,69,0.4);color:var(--red);font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;padding:3px 10px;border-radius:2px;}
+  .header-right{margin-left:auto;display:flex;align-items:center;gap:10px;}
+  #conn-status{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;padding:3px 9px;border-radius:2px;border:1px solid transparent;transition:all 0.3s;}
+  #conn-status.online{color:var(--neon-green);border-color:rgba(57,255,106,0.3);}
+  #conn-status.offline{color:var(--red);border-color:rgba(255,69,69,0.3);}
+  .player-link{font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);text-decoration:none;border:1px solid var(--border);padding:5px 12px;border-radius:3px;transition:color 0.15s,border-color 0.15s;}
+  .player-link:hover{color:var(--neon-green);border-color:var(--neon-green);}
+
+  .hero{position:relative;padding:36px 24px 28px;text-align:center;overflow:hidden;}
+  .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(255,69,69,0.05) 0%,transparent 70%);pointer-events:none;}
+  .event-tag{display:inline-block;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--red);border:1px solid rgba(255,69,69,0.3);padding:4px 14px;border-radius:2px;margin-bottom:12px;}
+  .hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,8vw,72px);letter-spacing:0.04em;line-height:0.95;color:var(--gold);text-shadow:0 0 40px rgba(245,200,66,0.25);margin-bottom:4px;}
+  .hero-sub{font-family:'Bebas Neue',sans-serif;font-size:clamp(16px,2.5vw,24px);letter-spacing:0.15em;color:rgba(240,240,240,0.6);margin-bottom:16px;}
+  .hero-meta{font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);}
+  .hero-meta span{color:var(--neon-green);}
+
+  .container{max-width:1100px;margin:0 auto;padding:0 20px 60px;}
+  .section-label{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+  .section-label::after{content:'';flex:1;height:1px;background:var(--border);}
+
+  .cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-bottom:40px;}
+  .cat-card{background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:18px 16px;cursor:pointer;transition:border-color 0.2s,transform 0.15s,box-shadow 0.2s;position:relative;overflow:hidden;}
+  .cat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent);opacity:0.7;}
+  .cat-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.4);}
+  .cat-card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;}
+  .cat-pill{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;padding:2px 8px;border-radius:2px;color:var(--accent);background:rgba(255,255,255,0.05);border:1px solid var(--accent);opacity:0.7;}
+  .cat-num{font-family:'Bebas Neue',sans-serif;font-size:28px;color:rgba(255,255,255,0.06);}
+  .cat-name{font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:600;color:var(--text);line-height:1.2;margin-bottom:4px;}
+  .cat-desc{font-size:12px;color:var(--text-muted);}
+  .cat-status{margin-top:12px;display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-dim);font-family:'Barlow Condensed',sans-serif;letter-spacing:0.06em;}
+  .status-dot{width:5px;height:5px;border-radius:50%;background:var(--text-dim);}
+  .status-dot.active{background:var(--neon-green);box-shadow:0 0 6px var(--neon-green);}
+
+  .back-btn{display:inline-flex;align-items:center;gap:8px;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);cursor:pointer;background:none;border:none;padding:0;margin-bottom:24px;transition:color 0.15s;}
+  .back-btn:hover{color:var(--gold);}
+
+  .bracket-header{display:flex;align-items:flex-start;gap:16px;margin-bottom:32px;padding-bottom:24px;border-bottom:1px solid var(--border);}
+  .bracket-accent{width:4px;border-radius:2px;align-self:stretch;min-height:50px;}
+  .bracket-title{font-family:'Bebas Neue',sans-serif;font-size:42px;letter-spacing:0.04em;color:var(--text);line-height:1;margin-bottom:4px;}
+  .bracket-meta-row{display:flex;gap:16px;flex-wrap:wrap;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);}
+
+  .rounds-wrap{display:flex;gap:0;overflow-x:auto;padding-bottom:16px;}
+  .round-col{flex:0 0 240px;}
+  .round-gap{flex:0 0 24px;}
+  .round-spacer{flex:0 0 1px;background:var(--border);margin:40px 0;align-self:stretch;}
+  .round-head{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);padding:0 0 12px 0;border-bottom:1px solid var(--border);margin-bottom:16px;}
+
+  .match-card{background:var(--bg2);border:1px solid var(--border);border-radius:4px;margin-bottom:14px;overflow:hidden;}
+  .match-card.has-scores{border-color:rgba(255,255,255,0.12);}
+  .match-meta{display:flex;align-items:center;justify-content:space-between;padding:6px 10px;background:rgba(255,255,255,0.03);border-bottom:1px solid var(--border);font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-dim);}
+  .done-tag{background:rgba(57,255,106,0.12);color:var(--neon-green);font-size:9px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;padding:2px 6px;border-radius:2px;}
+  .match-team{display:flex;align-items:center;justify-content:space-between;padding:10px 10px 10px 12px;border-bottom:1px solid var(--border);gap:8px;}
+  .match-team:last-of-type{border-bottom:none;}
+  .team-name{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:500;color:var(--text-muted);flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .team-name.winner{color:var(--text);font-weight:600;}
+  .team-name.tbd{color:var(--text-dim);font-style:italic;font-size:12px;}
+  .score-num{font-family:'Bebas Neue',sans-serif;font-size:20px;min-width:22px;text-align:center;color:var(--text-dim);}
+  .score-num.win{color:var(--neon-green);}
+  .score-num.lose{color:rgba(240,240,240,0.22);}
+  .score-input{width:44px;height:30px;background:rgba(255,255,255,0.05);border:1px solid var(--border-bright);border-radius:3px;color:var(--text);text-align:center;font-family:'Bebas Neue',sans-serif;font-size:17px;outline:none;transition:border-color 0.15s,background 0.15s;}
+  .score-input:focus{border-color:var(--accent-local,var(--gold));background:rgba(255,255,255,0.08);}
+  .winner-bar{height:2px;transform-origin:left;transform:scaleX(0);transition:transform 0.4s ease;}
+  .winner-bar.show{transform:scaleX(1);}
+
+  .team-editor{margin-top:32px;padding-top:24px;border-top:1px solid var(--border);}
+  .team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;margin-bottom:16px;}
+  .team-row{display:flex;align-items:center;gap:8px;}
+  .team-idx{font-family:'Bebas Neue',sans-serif;font-size:14px;color:var(--text-dim);min-width:20px;text-align:center;}
+  .team-input{flex:1;background:var(--bg3);border:1px solid var(--border-bright);border-radius:3px;color:var(--text);font-family:'Barlow Condensed',sans-serif;font-size:14px;padding:7px 10px;outline:none;transition:border-color 0.15s;}
+  .team-input:focus{border-color:var(--gold);}
+
+  .danger-zone{margin-top:20px;display:flex;gap:10px;flex-wrap:wrap;}
+  .btn-danger{font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,69,69,0.5);background:none;border:1px solid rgba(255,69,69,0.2);border-radius:3px;padding:6px 16px;cursor:pointer;transition:all 0.15s;}
+  .btn-danger:hover{color:var(--red);border-color:var(--red);background:rgba(255,69,69,0.05);}
+
+  .loading{display:flex;align-items:center;justify-content:center;padding:80px;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);gap:10px;}
+  .spin{width:16px;height:16px;border:2px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin 0.8s linear infinite;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+
+  #toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--bg3);border:1px solid var(--border-bright);color:var(--text);font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:0.08em;padding:10px 20px;border-radius:4px;transition:transform 0.3s ease;z-index:1000;white-space:nowrap;}
+  #toast.show{transform:translateX(-50%) translateY(0);}
+
+  @media(max-width:600px){.cat-grid{grid-template-columns:1fr 1fr;}.container{padding:0 12px 40px;}}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div>
+    <div class="logo-text">DBay Drift</div>
+    <div class="logo-sub">Pickleball 2026</div>
+  </div>
+  <div class="admin-badge">Admin</div>
+  <div class="header-right">
+    <span id="conn-status" class="offline">Connecting…</span>
+    <a href="players.html" class="player-link">Player View →</a>
+  </div>
+</header>
+
+<div id="root"></div>
+<div id="toast"></div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getDatabase, ref, set, get, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyD0gzqqJww11khc0xcq5dguzbFZ7B12VR8",
+  authDomain: "fastfurious-dbaydrift.firebaseapp.com",
+  databaseURL: "https://fastfurious-dbaydrift-default-rtdb.firebaseio.com",
+  projectId: "fastfurious-dbaydrift",
+  storageBucket: "fastfurious-dbaydrift.firebasestorage.app",
+  messagingSenderId: "488263250252",
+  appId: "1:488263250252:web:f661c24a591d85b4505fe9"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+const CATEGORIES = [
+  { id:'mens-3.5-below',   name:"Men's 3.5 & Below",   sub:"Low Intermediate",   type:"MEN",    accent:'#3CEFFF' },
+  { id:'mens-3.5-plus',    name:"Men's 3.5+",           sub:"High Intermediate",  type:"MEN",    accent:'#3CEFFF' },
+  { id:'womens-3.5-below', name:"Women's 3.5 & Below",  sub:"Low Intermediate",   type:"WOMEN",  accent:'#FF3CAC' },
+  { id:'womens-3.5-plus',  name:"Women's 3.5+",         sub:"High Intermediate",  type:"WOMEN",  accent:'#FF3CAC' },
+  { id:'mixed-3.5-below',  name:"Mixed 3.5 & Below",    sub:"Low Intermediate",   type:"MIXED",  accent:'#39FF6A' },
+  { id:'mixed-3.5-plus',   name:"Mixed 3.5+",           sub:"High Intermediate",  type:"MIXED",  accent:'#39FF6A' },
+  { id:'all-beginners',    name:"All-In Beginners",      sub:"Open / No rating",   type:"ALL-IN", accent:'#F5C842' },
+  { id:'all-advanced',     name:"All-In Advanced",       sub:"4.0+ rating",        type:"ALL-IN", accent:'#F5C842' },
+  { id:'seniors-50plus',   name:"50+ Seniors",           sub:"No rating required", type:"50+",    accent:'#C084FC' },
+  { id:'juniors',          name:"Junior Scramble",       sub:"Youth division",     type:"JUNIOR", accent:'#FB923C' },
+];
+
+function defaultBracket() {
+  return {
+    teams: ['TBD','TBD','TBD','TBD','TBD','TBD','TBD','TBD'],
+    matches: [
+      { id:0, round:'QF', a:0, b:7, sA:'', sB:'', status:'pending' },
+      { id:1, round:'QF', a:3, b:4, sA:'', sB:'', status:'pending' },
+      { id:2, round:'QF', a:2, b:5, sA:'', sB:'', status:'pending' },
+      { id:3, round:'QF', a:1, b:6, sA:'', sB:'', status:'pending' },
+      { id:4, round:'SF', a:null, b:null, sA:'', sB:'', status:'pending' },
+      { id:5, round:'SF', a:null, b:null, sA:'', sB:'', status:'pending' },
+      { id:6, round:'F',  a:null, b:null, sA:'', sB:'', status:'pending' },
+    ]
+  };
+}
+
+function fixBracket(b) {
+  if (!b) return defaultBracket();
+  if (b.matches && !Array.isArray(b.matches)) b.matches = Object.values(b.matches);
+  if (!b.teams) b.teams = ['TBD','TBD','TBD','TBD','TBD','TBD','TBD','TBD'];
+  return b;
+}
+
+let state = { view:'home', catId:null, brackets:{}, loading:true };
+
+async function init() {
+  // Connection indicator
+  onValue(ref(db, '.info/connected'), snap => {
+    const el = document.getElementById('conn-status');
+    if (el) { el.textContent = snap.val() ? 'Online' : 'Offline'; el.className = snap.val() ? 'online' : 'offline'; }
+  });
+
+  // Load initial data
+  const snap = await get(ref(db, 'brackets'));
+  const existing = snap.exists() ? snap.val() : {};
+  for (const cat of CATEGORIES) {
+    state.brackets[cat.id] = fixBracket(existing[cat.id]);
+  }
+
+  // Real-time listener — re-render when Firebase data changes
+  onValue(ref(db, 'brackets'), snap => {
+    if (!snap.exists()) return;
+    const data = snap.val();
+    for (const catId of Object.keys(data)) {
+      state.brackets[catId] = fixBracket(data[catId]);
+    }
+    if (!state.loading) render();
+  });
+
+  state.loading = false;
+  render();
+}
+
+async function saveBracket(catId) {
+  await set(ref(db, 'brackets/' + catId), state.brackets[catId]);
+}
+
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+function getResult(bracket, mid) {
+  const m = bracket.matches[mid];
+  if (!m || m.sA === '' || m.sB === '') return null;
+  const sa = parseInt(m.sA), sb = parseInt(m.sB);
+  if (isNaN(sa) || isNaN(sb)) return null;
+  return { aWins: sa > sb, sa, sb };
+}
+
+function teamName(bracket, slot) {
+  if (slot === null || slot === undefined) return null;
+  return bracket.teams[slot] || 'TBD';
+}
+
+function catHasScores(id) {
+  const b = state.brackets[id];
+  if (!b) return false;
+  return b.matches.some(m => m.sA !== '' || m.sB !== '');
+}
+
+function advance(bracket, mid, res) {
+  const map = { 0:{t:4,s:'a'}, 1:{t:4,s:'b'}, 2:{t:5,s:'a'}, 3:{t:5,s:'b'}, 4:{t:6,s:'a'}, 5:{t:6,s:'b'} };
+  const adv = map[mid]; if (!adv) return;
+  const src = bracket.matches[mid];
+  bracket.matches[adv.t][adv.s] = res.aWins ? src.a : src.b;
+}
+
+function render() {
+  const root = document.getElementById('root');
+  if (state.loading) { root.innerHTML = `<div class="loading"><div class="spin"></div> Loading tournament data…</div>`; return; }
+  root.innerHTML = state.view === 'home' ? renderHome() : renderBracket(state.catId);
+  attach();
+}
+
+function renderHome() {
+  return `
+    <div class="hero">
+      <div class="event-tag">Admin Panel · Fast &amp; Furious DBay Drift</div>
+      <div class="hero-title">Tournament<br>Control</div>
+      <div class="hero-sub">2026</div>
+      <div class="hero-meta">Saturday 16 May &nbsp;·&nbsp; <span>Moreton City Pickleball</span></div>
+    </div>
+    <div class="container">
+      <div class="section-label">Select a Category to Manage</div>
+      <div class="cat-grid">
+        ${CATEGORIES.map((cat, i) => `
+          <div class="cat-card" data-goto="${cat.id}" style="--accent:${cat.accent}">
+            <div class="cat-card-top">
+              <span class="cat-pill">${cat.type}</span>
+              <span class="cat-num">${String(i+1).padStart(2,'0')}</span>
+            </div>
+            <div class="cat-name">${cat.name}</div>
+            <div class="cat-desc">${cat.sub}</div>
+            <div class="cat-status">
+              <div class="status-dot ${catHasScores(cat.id) ? 'active' : ''}"></div>
+              ${catHasScores(cat.id) ? 'In progress' : 'Not started'}
+            </div>
+          </div>`).join('')}
+      </div>
+    </div>`;
+}
+
+function renderMatch(bracket, m, catId, accent) {
+  const res = getResult(bracket, m.id);
+  const nA = m.a !== null ? teamName(bracket, m.a) : null;
+  const nB = m.b !== null ? teamName(bracket, m.b) : null;
+  const aW = res ? res.aWins : false, bW = res ? !res.aWins : false;
+  const played = res !== null;
+  const disA = !nA || nA === 'TBD' ? 'disabled' : '';
+  const disB = !nB || nB === 'TBD' ? 'disabled' : '';
+  return `
+    <div class="match-card ${played ? 'has-scores' : ''}">
+      <div class="match-meta">
+        <span>Match ${m.id + 1}</span>
+        ${played ? '<span class="done-tag">Done</span>' : ''}
+      </div>
+      <div class="match-team">
+        <span class="team-name ${!nA ? 'tbd' : played ? (aW ? 'winner' : '') : ''}">${nA || 'TBD'}</span>
+        ${played
+          ? `<span class="score-num ${aW ? 'win' : 'lose'}">${m.sA}</span>`
+          : `<input class="score-input" type="number" min="0" max="99" placeholder="–" value="${m.sA}"
+              data-mid="${m.id}" data-side="A" data-catid="${catId}" ${disA} style="--accent-local:${accent}">`}
+      </div>
+      <div class="match-team">
+        <span class="team-name ${!nB ? 'tbd' : played ? (bW ? 'winner' : '') : ''}">${nB || 'TBD'}</span>
+        ${played
+          ? `<span class="score-num ${bW ? 'win' : 'lose'}">${m.sB}</span>`
+          : `<input class="score-input" type="number" min="0" max="99" placeholder="–" value="${m.sB}"
+              data-mid="${m.id}" data-side="B" data-catid="${catId}" ${disB} style="--accent-local:${accent}">`}
+      </div>
+      <div class="winner-bar ${played ? 'show' : ''}" style="background:${played ? accent : 'transparent'}"></div>
+    </div>`;
+}
+
+function renderBracket(catId) {
+  const cat = CATEGORIES.find(c => c.id === catId);
+  const bracket = state.brackets[catId];
+  const accent = cat.accent;
+  const qf = bracket.matches.filter(m => m.round === 'QF');
+  const sf = bracket.matches.filter(m => m.round === 'SF');
+  const fi = bracket.matches.filter(m => m.round === 'F');
+
+  return `
+    <div class="container" style="padding-top:24px;">
+      <button class="back-btn" id="back-btn">← All Categories</button>
+      <div class="bracket-header">
+        <div class="bracket-accent" style="background:${accent}"></div>
+        <div>
+          <div class="bracket-title">${cat.name}</div>
+          <div class="bracket-meta-row">
+            <span style="color:${accent}">${cat.sub}</span>
+            <span style="color:var(--border-bright)">|</span>
+            <span>8 teams · Single elimination</span>
+          </div>
+        </div>
+      </div>
+      <div class="section-label">Bracket</div>
+      <div class="rounds-wrap">
+        <div class="round-col"><div class="round-head">Quarter-finals</div>${qf.map(m => renderMatch(bracket, m, catId, accent)).join('')}</div>
+        <div class="round-gap"></div><div class="round-spacer"></div><div class="round-gap"></div>
+        <div class="round-col"><div class="round-head">Semi-finals</div>${sf.map(m => renderMatch(bracket, m, catId, accent)).join('')}</div>
+        <div class="round-gap"></div><div class="round-spacer"></div><div class="round-gap"></div>
+        <div class="round-col"><div class="round-head">Final</div>${fi.map(m => renderMatch(bracket, m, catId, accent)).join('')}</div>
+      </div>
+      <div class="team-editor">
+        <div class="section-label">Team Names</div>
+        <div class="team-grid">
+          ${bracket.teams.map((t, i) => `
+            <div class="team-row">
+              <span class="team-idx">${i + 1}</span>
+              <input class="team-input team-name-input" type="text"
+                value="${t === 'TBD' ? '' : t}" placeholder="Team ${i + 1}"
+                data-teamidx="${i}" data-catid="${catId}">
+            </div>`).join('')}
+        </div>
+        <div class="danger-zone">
+          <button class="btn-danger" id="reset-scores">Reset Scores</button>
+          <button class="btn-danger" id="reset-all">Reset Scores + Teams</button>
+        </div>
+      </div>
+    </div>`;
+}
+
+function attach() {
+  document.querySelectorAll('[data-goto]').forEach(el => {
+    el.addEventListener('click', () => { state.catId = el.dataset.goto; state.view = 'bracket'; render(); });
+  });
+
+  const back = document.getElementById('back-btn');
+  if (back) back.addEventListener('click', () => { state.view = 'home'; render(); });
+
+  document.querySelectorAll('.score-input').forEach(inp => {
+    inp.addEventListener('change', async () => {
+      const catId = inp.dataset.catid, mid = parseInt(inp.dataset.mid), side = inp.dataset.side;
+      const bracket = state.brackets[catId];
+      const match = bracket.matches[mid];
+      if (side === 'A') match.sA = inp.value.trim(); else match.sB = inp.value.trim();
+      const res = getResult(bracket, mid);
+      if (res) { match.status = 'done'; advance(bracket, mid, res); }
+      await saveBracket(catId);
+      toast('Score saved ✓');
+      render();
+    });
+  });
+
+  document.querySelectorAll('.team-name-input').forEach(inp => {
+    inp.addEventListener('blur', async () => {
+      const catId = inp.dataset.catid, idx = parseInt(inp.dataset.teamidx);
+      state.brackets[catId].teams[idx] = inp.value.trim() || 'TBD';
+      await saveBracket(catId);
+      toast('Team saved ✓');
+    });
+  });
+
+  const resetScores = document.getElementById('reset-scores');
+  if (resetScores) resetScores.addEventListener('click', async () => {
+    if (!confirm('Reset all scores for this category? Team names will be kept.')) return;
+    const catId = state.catId;
+    const teams = state.brackets[catId].teams.slice();
+    state.brackets[catId] = defaultBracket();
+    state.brackets[catId].teams = teams;
+    await saveBracket(catId);
+    toast('Scores reset'); render();
+  });
+
+  const resetAll = document.getElementById('reset-all');
+  if (resetAll) resetAll.addEventListener('click', async () => {
+    if (!confirm('Reset ALL scores AND team names? This cannot be undone.')) return;
+    state.brackets[state.catId] = defaultBracket();
+    await saveBracket(state.catId);
+    toast('Category fully reset'); render();
+  });
+}
+
+render();
+init();
+</script>
+</body>
+</html>
