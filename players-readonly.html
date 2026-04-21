@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DBay Drift · Pickleball Comp 2026 · Live Scores</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;500;600;700&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--gold:#F5C842;--neon-green:#39FF6A;--neon-pink:#FF3CAC;--bg:#0a0a0f;--bg2:#111118;--bg3:#1a1a24;--border:rgba(255,255,255,0.08);--border-bright:rgba(255,255,255,0.18);--text:#f0f0f0;--text-muted:rgba(240,240,240,0.5);--text-dim:rgba(240,240,240,0.28);}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:'Barlow',sans-serif;}
+  body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px);pointer-events:none;z-index:9999;}
+
+  .site-header{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:12px 24px;display:flex;align-items:center;gap:16px;}
+  .logo-text{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:0.05em;color:var(--gold);line-height:1;}
+  .logo-sub{font-size:11px;color:var(--text-muted);font-family:'Barlow Condensed',sans-serif;letter-spacing:0.1em;text-transform:uppercase;}
+  .header-right{margin-left:auto;display:flex;align-items:center;gap:10px;}
+  .live-dot{width:7px;height:7px;border-radius:50%;background:var(--neon-pink);box-shadow:0 0 8px var(--neon-pink);animation:blink 1.4s infinite;}
+  @keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(0.7)}}
+  .live-label{font-size:11px;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);}
+
+  .hero{position:relative;padding:40px 24px 32px;text-align:center;overflow:hidden;}
+  .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(245,200,66,0.08) 0%,transparent 70%);pointer-events:none;}
+  .event-tag{display:inline-block;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(245,200,66,0.3);padding:4px 14px;border-radius:2px;margin-bottom:14px;}
+  .hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(48px,9vw,88px);letter-spacing:0.04em;line-height:0.9;color:var(--gold);text-shadow:0 0 40px rgba(245,200,66,0.3);margin-bottom:6px;}
+  .hero-sub{font-family:'Bebas Neue',sans-serif;font-size:clamp(16px,2.5vw,26px);letter-spacing:0.15em;color:rgba(240,240,240,0.65);margin-bottom:18px;}
+  .hero-meta{font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);}
+  .hero-meta span{color:var(--neon-green);}
+
+  .container{max-width:1000px;margin:0 auto;padding:0 20px 60px;}
+  .section-label{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+  .section-label::after{content:'';flex:1;height:1px;background:var(--border);}
+
+  /* TABS */
+  .tab-bar{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:28px;}
+  .tab{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-dim);padding:10px 20px;cursor:pointer;border-bottom:2px solid transparent;transition:color 0.15s,border-color 0.15s;background:none;border-top:none;border-left:none;border-right:none;margin-bottom:-1px;}
+  .tab.active{color:var(--gold);border-bottom-color:var(--gold);}
+  .tab:hover:not(.active){color:var(--text-muted);}
+
+  /* HOME GRID */
+  .cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:10px;margin-bottom:32px;}
+  .cat-card{background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:16px 14px;cursor:pointer;transition:border-color 0.2s,transform 0.15s;position:relative;overflow:hidden;}
+  .cat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent);opacity:0.7;}
+  .cat-card:hover{border-color:var(--accent);transform:translateY(-2px);}
+  .cat-pill{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;padding:2px 6px;border-radius:2px;color:var(--accent);border:1px solid var(--accent);opacity:0.65;display:inline-block;margin-bottom:10px;}
+  .cat-name{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:600;color:var(--text);line-height:1.2;margin-bottom:3px;}
+  .cat-desc{font-size:11px;color:var(--text-muted);}
+  .cat-progress{margin-top:10px;height:2px;background:var(--border);border-radius:1px;overflow:hidden;}
+  .cat-progress-bar{height:100%;border-radius:1px;transition:width 0.4s ease;}
+  .cat-teams-label{font-size:11px;color:var(--text-dim);font-family:'Barlow Condensed',sans-serif;margin-top:6px;}
+  .cat-teams-label.has{color:var(--gold);}
+
+  /* BACK */
+  .back-btn{display:inline-flex;align-items:center;gap:8px;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);cursor:pointer;background:none;border:none;padding:0;margin-bottom:24px;transition:color 0.15s;}
+  .back-btn:hover{color:var(--gold);}
+
+  /* BRACKET HEADER */
+  .bracket-header{display:flex;align-items:flex-start;gap:16px;margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid var(--border);}
+  .bracket-accent{width:4px;border-radius:2px;align-self:stretch;min-height:46px;}
+  .bracket-title{font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:0.04em;color:var(--text);line-height:1;margin-bottom:4px;}
+  .bracket-meta-row{font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);}
+
+  /* POOL SECTION */
+  .pool-section{margin-bottom:32px;}
+  .pool-header{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+  .pool-label{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:0.05em;}
+  .pool-badge{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;padding:3px 9px;border-radius:2px;background:rgba(255,255,255,0.05);color:var(--text-muted);border:1px solid var(--border);}
+
+  /* STANDINGS */
+  .standings{background:var(--bg2);border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-bottom:16px;}
+  .standings-head{display:grid;grid-template-columns:28px 1fr 36px 36px 36px 44px 52px;padding:7px 12px;background:rgba(255,255,255,0.03);border-bottom:1px solid var(--border);}
+  .sh{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);text-align:center;}
+  .sh:nth-child(2){text-align:left;}
+  .standings-row{display:grid;grid-template-columns:28px 1fr 36px 36px 36px 44px 52px;padding:9px 12px;border-bottom:1px solid var(--border);align-items:center;}
+  .standings-row:last-child{border-bottom:none;}
+  .standings-row.advances{background:rgba(57,255,106,0.04);}
+  .sr-rank{font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--text-dim);text-align:center;}
+  .sr-name{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:500;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:flex;align-items:center;gap:6px;}
+  .sr-name.tbd{color:var(--text-dim);font-style:italic;font-size:11px;}
+  .sr-cell{font-family:'Bebas Neue',sans-serif;font-size:15px;color:var(--text-muted);text-align:center;}
+  .sr-pts{font-family:'Bebas Neue',sans-serif;font-size:17px;text-align:center;color:var(--text-dim);}
+  .sr-pts.has-pts{color:var(--neon-green);}
+  .advances-tag{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--neon-green);background:rgba(57,255,106,0.1);border:1px solid rgba(57,255,106,0.2);padding:1px 5px;border-radius:2px;white-space:nowrap;}
+
+  /* MATCH CARDS */
+  .matches-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;margin-bottom:16px;}
+  .match-card{background:var(--bg2);border:1px solid var(--border);border-radius:4px;overflow:hidden;}
+  .match-card.has-scores{border-color:rgba(255,255,255,0.1);}
+  .match-card.finals-card{border-color:rgba(245,200,66,0.2);}
+  .match-meta{display:flex;align-items:center;justify-content:space-between;padding:5px 10px;background:rgba(255,255,255,0.03);border-bottom:1px solid var(--border);font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-dim);}
+  .done-tag{background:rgba(57,255,106,0.12);color:var(--neon-green);font-size:9px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;padding:2px 6px;border-radius:2px;}
+  .match-team{display:flex;align-items:center;justify-content:space-between;padding:9px 10px 9px 12px;border-bottom:1px solid var(--border);gap:8px;}
+  .match-team:last-of-type{border-bottom:none;}
+  .team-name-cell{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:500;color:var(--text-muted);flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .team-name-cell.winner{color:var(--text);font-weight:600;}
+  .team-name-cell.tbd{color:var(--text-dim);font-style:italic;font-size:11px;}
+  .score-num{font-family:'Bebas Neue',sans-serif;font-size:20px;min-width:22px;text-align:center;color:var(--text-dim);}
+  .score-num.win{color:var(--neon-green);}
+  .score-num.lose{color:rgba(240,240,240,0.2);}
+
+  .winner-bar{height:2px;transform-origin:left;transform:scaleX(0);transition:transform 0.4s ease;}
+  .winner-bar.show{transform:scaleX(1);}
+
+  .finals-note{font-size:12px;color:var(--text-dim);font-family:'Barlow Condensed',sans-serif;letter-spacing:0.06em;margin-bottom:14px;padding:8px 12px;background:rgba(245,200,66,0.04);border:1px solid rgba(245,200,66,0.1);border-radius:3px;}
+  .empty-state{padding:40px 20px;text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:14px;color:var(--text-dim);letter-spacing:0.1em;}
+
+  .loading{display:flex;align-items:center;justify-content:center;padding:80px;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);gap:10px;}
+  .spin{width:16px;height:16px;border:2px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin 0.8s linear infinite;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+
+  @media(max-width:600px){.cat-grid{grid-template-columns:1fr 1fr;}.container{padding:0 12px 40px;}.standings-head,.standings-row{grid-template-columns:24px 1fr 30px 30px 30px 38px 44px;padding:6px 8px;}}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div><div class="logo-text">DBay Drift</div><div class="logo-sub">Pickleball 2026</div></div>
+  <div class="header-right"><div class="live-dot"></div><div class="live-label">Live</div></div>
+</header>
+<div id="root"></div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getDatabase, ref, get, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyD0gzqqJww11khc0xcq5dguzbFZ7B12VR8",
+  authDomain: "fastfurious-dbaydrift.firebaseapp.com",
+  databaseURL: "https://fastfurious-dbaydrift-default-rtdb.firebaseio.com",
+  projectId: "fastfurious-dbaydrift",
+  storageBucket: "fastfurious-dbaydrift.firebasestorage.app",
+  messagingSenderId: "488263250252",
+  appId: "1:488263250252:web:f661c24a591d85b4505fe9"
+};
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+const CATEGORIES = [
+  { id:'mens-35-below',   name:"Men's 3.5 & Below",   sub:"Low Intermediate",   type:"MEN",    accent:'#3CEFFF' },
+  { id:'mens-35-plus',    name:"Men's 3.5+",           sub:"High Intermediate",  type:"MEN",    accent:'#3CEFFF' },
+  { id:'womens-35-below', name:"Women's 3.5 & Below",  sub:"Low Intermediate",   type:"WOMEN",  accent:'#FF3CAC' },
+  { id:'womens-35-plus',  name:"Women's 3.5+",         sub:"High Intermediate",  type:"WOMEN",  accent:'#FF3CAC' },
+  { id:'mixed-35-below',  name:"Mixed 3.5 & Below",    sub:"Low Intermediate",   type:"MIXED",  accent:'#39FF6A' },
+  { id:'mixed-35-plus',   name:"Mixed 3.5+",           sub:"High Intermediate",  type:"MIXED",  accent:'#39FF6A' },
+  { id:'all-beginners',   name:"All-In Beginners",      sub:"Open / No rating",   type:"ALL-IN", accent:'#F5C842' },
+  { id:'all-advanced',    name:"All-In Advanced",       sub:"4.0+ rating",        type:"ALL-IN", accent:'#F5C842' },
+  { id:'seniors-50plus',  name:"50+ Seniors",           sub:"No rating required", type:"50+",    accent:'#C084FC' },
+  { id:'juniors',         name:"Junior Scramble",       sub:"Youth division",     type:"JUNIOR", accent:'#FB923C' },
+];
+
+function fixCatData(d) {
+  if (!d) return null;
+  if (d.pools && !Array.isArray(d.pools)) d.pools = Object.values(d.pools);
+  if (d.pools) d.pools = d.pools.map(pool => {
+    if (pool.matches && !Array.isArray(pool.matches)) pool.matches = Object.values(pool.matches);
+    if (pool.teamNames && !Array.isArray(pool.teamNames)) pool.teamNames = Object.values(pool.teamNames);
+    return pool;
+  });
+  if (d.teams && !Array.isArray(d.teams)) d.teams = Object.values(d.teams);
+  return d;
+}
+
+function matchResult(m) {
+  if (!m || m.sA===''||m.sB===''||m.sA===null||m.sB===null) return null;
+  const sA=parseInt(m.sA),sB=parseInt(m.sB);
+  if(isNaN(sA)||isNaN(sB)) return null;
+  return {sA,sB};
+}
+
+function poolStandings(pool) {
+  const stats={};
+  pool.teamNames.forEach(name=>{stats[name]={name,w:0,d:0,l:0,pf:0,pa:0,pts:0,played:0};});
+  pool.matches.forEach(m=>{
+    const res=matchResult(m); if(!res) return;
+    if(!stats[m.a]||!stats[m.b]) return;
+    stats[m.a].played++;stats[m.b].played++;
+    stats[m.a].pf+=res.sA;stats[m.a].pa+=res.sB;
+    stats[m.b].pf+=res.sB;stats[m.b].pa+=res.sA;
+    if(res.sA>res.sB){stats[m.a].w++;stats[m.a].pts+=3;stats[m.b].l++;}
+    else if(res.sB>res.sA){stats[m.b].w++;stats[m.b].pts+=3;stats[m.a].l++;}
+    else{stats[m.a].d++;stats[m.a].pts+=1;stats[m.b].d++;stats[m.b].pts+=1;}
+  });
+  return Object.values(stats).sort((a,b)=>b.pts-a.pts||(b.pf-b.pa)-(a.pf-a.pa)||b.pf-a.pf);
+}
+
+function seedFinals(d) {
+  if(!d.pools||!d.pools.length) return;
+  const np=d.pools.length;
+  const poolTops=d.pools.map(p=>poolStandings(p));
+  let sf1A=null,sf1B=null,sf2A=null,sf2B=null;
+  if(np===1){
+    const st=poolTops[0];
+    sf1A=st[0]?.name||null;sf1B=st[3]?.name||null;
+    sf2A=st[1]?.name||null;sf2B=st[2]?.name||null;
+  } else if(np===2){
+    sf1A=poolTops[0][0]?.name||null;sf1B=poolTops[1][1]?.name||null;
+    sf2A=poolTops[1][0]?.name||null;sf2B=poolTops[0][1]?.name||null;
+  } else {
+    const winners=poolTops.map(st=>st[0]?.name||null);
+    const runnerUps=poolTops.map(st=>st[1]).filter(Boolean).sort((a,b)=>b.pts-a.pts||(b.pf-b.pa)-(a.pf-a.pa)||b.pf-a.pf);
+    const semis=[winners[0],winners[1],winners[2]||runnerUps[0]?.name,winners[3]||runnerUps[1]?.name].filter(Boolean);
+    sf1A=semis[0]||null;sf1B=semis[3]||null;
+    sf2A=semis[1]||null;sf2B=semis[2]||null;
+  }
+  if(d.finals.sf1) { d.finals.sf1.a=sf1A; d.finals.sf1.b=sf1B; }
+  if(d.finals.sf2) { d.finals.sf2.a=sf2A; d.finals.sf2.b=sf2B; }
+}
+
+function seedFinal(d) {
+  const sf1res=matchResult(d.finals.sf1),sf2res=matchResult(d.finals.sf2);
+  const sf1win=sf1res?(sf1res.sA>sf1res.sB?d.finals.sf1.a:d.finals.sf1.b):null;
+  const sf2win=sf2res?(sf2res.sA>sf2res.sB?d.finals.sf2.a:d.finals.sf2.b):null;
+  if(d.finals.final){d.finals.final.a=sf1win;d.finals.final.b=sf2win;}
+}
+
+let state={view:'home',catId:null,tab:'standings',catData:{},loading:true};
+
+async function init() {
+  const snap=await get(ref(db,'cats'));
+  const existing=snap.exists()?snap.val():{};
+  for(const cat of CATEGORIES) state.catData[cat.id]=fixCatData(existing[cat.id])||null;
+
+  onValue(ref(db,'cats'),snap=>{
+    if(!snap.exists()) return;
+    const data=snap.val();
+    for(const catId of Object.keys(data)) state.catData[catId]=fixCatData(data[catId]);
+    if(!state.loading) render();
+  });
+  state.loading=false; render();
+}
+
+
+
+
+function catProgress(id) {
+  const d=state.catData[id]; if(!d||!d.pools||!d.pools.length) return 0;
+  const total=d.pools.reduce((s,p)=>s+(p.matches||[]).length,0);
+  const played=d.pools.reduce((s,p)=>s+(p.matches||[]).filter(m=>matchResult(m)).length,0);
+  return total>0?Math.round((played/total)*100):0;
+}
+function catTeamCount(id){const d=state.catData[id];return d&&d.teams?d.teams.filter(t=>t&&t!=='TBD').length:0;}
+
+function render() {
+  const root=document.getElementById('root');
+  if(state.loading){root.innerHTML=`<div class="loading"><div class="spin"></div> Loading scores…</div>`;return;}
+  root.innerHTML=state.view==='home'?renderHome():renderCat(state.catId);
+  attach();
+}
+
+function renderHome() {
+  return `
+    <div class="hero">
+      <div class="event-tag">Fast &amp; Furious · DBay Drift</div>
+      <div class="hero-title">Pickleball<br>Comp.</div>
+      <div class="hero-sub">2026</div>
+      <div class="hero-meta">Saturday 16 May &nbsp;·&nbsp; <span>Moreton City Pickleball</span></div>
+    </div>
+    <div class="container">
+      <div class="section-label">Select Your Division</div>
+      <div class="cat-grid">
+        ${CATEGORIES.map(cat=>{
+          const pct=catProgress(cat.id), tc=catTeamCount(cat.id);
+          return `
+            <div class="cat-card" data-goto="${cat.id}" style="--accent:${cat.accent}">
+              <span class="cat-pill">${cat.type}</span>
+              <div class="cat-name">${cat.name}</div>
+              <div class="cat-desc">${cat.sub}</div>
+              <div class="cat-teams-label ${tc>0?'has':''}">${tc>0?`${tc} teams`:'Not set up yet'}</div>
+              <div class="cat-progress"><div class="cat-progress-bar" style="width:${pct}%;background:${cat.accent}"></div></div>
+            </div>`;
+        }).join('')}
+      </div>
+    </div>`;
+}
+
+function renderCat(catId) {
+  const cat=CATEGORIES.find(c=>c.id===catId);
+  const d=state.catData[catId];
+  const accent=cat.accent;
+  const hasPools=d&&d.pools&&d.pools.length>0;
+
+  if(hasPools){seedFinals(d);seedFinal(d);}
+
+  const poolLetters=['A','B','C','D'];
+
+  // Build tab content
+  let tabContent='';
+  if(state.tab==='standings'){
+    if(!hasPools){
+      tabContent=`<div class="empty-state">This division hasn't been set up yet — check back soon.</div>`;
+    } else {
+      tabContent = d.pools.map((pool,pi)=>{
+        const standings=poolStandings(pool);
+        const advCount=d.advancersPerPool||2;
+        return `
+          <div class="pool-section">
+            <div class="pool-header">
+              <div class="pool-label" style="color:${accent}">Pool ${poolLetters[pi]}</div>
+              <div class="pool-badge">${pool.teamNames.length} teams</div>
+            </div>
+            ${renderStandings(standings, advCount)}
+          </div>`;
+      }).join('');
+    }
+  } else if(state.tab==='finals'){
+    if(!hasPools||!d.finals){
+      tabContent=`<div class="empty-state">Finals draw not yet available.</div>`;
+    } else {
+      const allPoolsDone=d.pools.every(p=>p.matches.every(m=>matchResult(m)));
+      tabContent=`
+        ${!allPoolsDone?`<div class="finals-note">Pool play is still in progress. Semi-final seedings shown are current projections.</div>`:''}
+        <div class="matches-grid">
+          ${d.finals.sf1?renderFinalMatch(d.finals.sf1,catId,accent):''}
+          ${d.finals.sf2?renderFinalMatch(d.finals.sf2,catId,accent):''}
+          ${d.finals.final?renderFinalMatch(d.finals.final,catId,accent):''}
+        </div>`;
+    }
+  }
+
+  return `
+    <div class="container" style="padding-top:24px;">
+      <button class="back-btn" id="back-btn">← All Divisions</button>
+      <div class="bracket-header">
+        <div class="bracket-accent" style="background:${accent}"></div>
+        <div>
+          <div class="bracket-title">${cat.name}</div>
+          <div class="bracket-meta-row" style="color:${accent}">${cat.sub}${hasPools?` · ${d.pools.length} pool${d.pools.length>1?'s':''} · Semi-finals · Final`:''}</div>
+        </div>
+      </div>
+      <div class="tab-bar">
+        <button class="tab ${state.tab==='standings'?'active':''}" data-tab="standings">Standings</button>
+        <button class="tab ${state.tab==='finals'?'active':''}" data-tab="finals">Finals</button>
+      </div>
+      ${tabContent}
+    </div>`;
+}
+
+function renderStandings(standings, advCount) {
+  return `
+    <div class="standings">
+      <div class="standings-head">
+        <div class="sh">#</div><div class="sh" style="text-align:left">Team</div>
+        <div class="sh">P</div><div class="sh">W</div><div class="sh">L</div>
+        <div class="sh">+/−</div><div class="sh">Pts</div>
+      </div>
+      ${standings.map((row,i)=>{
+        const diff=row.pf-row.pa, advances=i<advCount;
+        const diffColor=diff>0?'var(--neon-green)':diff<0?'rgba(255,80,80,0.7)':'var(--text-dim)';
+        return `
+          <div class="standings-row ${advances?'advances':''}">
+            <div class="sr-rank">${i+1}</div>
+            <div class="sr-name">${row.name}${advances?'<span class="advances-tag">Advances</span>':''}</div>
+            <div class="sr-cell">${row.played}</div>
+            <div class="sr-cell">${row.w}</div>
+            <div class="sr-cell">${row.l}</div>
+            <div class="sr-cell" style="color:${diffColor}">${diff>0?'+':''}${diff}</div>
+            <div class="sr-pts ${row.pts>0?'has-pts':''}">${row.pts}</div>
+          </div>`;
+      }).join('')}
+    </div>`;
+}
+
+function renderMatch(m, catId, accent, poolLabel) {
+  const res=matchResult(m), played=res!==null;
+  const aWins=played&&res.sA>res.sB, bWins=played&&res.sB>res.sA;
+  return `
+    <div class="match-card ${played?'has-scores':''}">
+      <div class="match-meta">
+        <span>${poolLabel}</span>${played?'<span class="done-tag">Done</span>':''}
+      </div>
+      <div class="match-team">
+        <span class="team-name-cell ${played?(aWins?'winner':''):''}">${m.a||'TBD'}</span>
+        <span class="score-num ${played?(aWins?'win':'lose'):''}">${played?m.sA:'–'}</span>
+      </div>
+      <div class="match-team">
+        <span class="team-name-cell ${played?(bWins?'winner':''):''}">${m.b||'TBD'}</span>
+        <span class="score-num ${played?(bWins?'win':'lose'):''}">${played?m.sB:'–'}</span>
+      </div>
+      <div class="winner-bar ${played?'show':''}" style="background:${played?accent:'transparent'}"></div>
+    </div>`;
+}
+
+function renderFinalMatch(m, catId, accent) {
+  const res=matchResult(m), played=res!==null;
+  const aWins=played&&res.sA>res.sB, bWins=played&&res.sB>res.sA;
+  const isGold=m.id==='final';
+  return `
+    <div class="match-card finals-card ${played?'has-scores':''}">
+      <div class="match-meta">
+        <span style="color:${isGold?'var(--gold)':'var(--text-muted)'}">${m.label}</span>
+        ${played?'<span class="done-tag">Done</span>':''}
+      </div>
+      <div class="match-team">
+        <span class="team-name-cell ${!m.a?'tbd':played?(aWins?'winner':''):''}">${m.a||'TBD — pending pool results'}</span>
+        <span class="score-num ${played?(aWins?'win':'lose'):''}">${played?m.sA:'–'}</span>
+      </div>
+      <div class="match-team">
+        <span class="team-name-cell ${!m.b?'tbd':played?(bWins?'winner':''):''}">${m.b||'TBD — pending pool results'}</span>
+        <span class="score-num ${played?(bWins?'win':'lose'):''}">${played?m.sB:'–'}</span>
+      </div>
+      <div class="winner-bar ${played?'show':''}" style="background:${played?(isGold?'var(--gold)':accent):'transparent'}"></div>
+    </div>`;
+}
+
+function attach() {
+  document.querySelectorAll('[data-goto]').forEach(el=>
+    el.addEventListener('click',()=>{state.catId=el.dataset.goto;state.view='bracket';state.tab='standings';render();})
+  );
+  const back=document.getElementById('back-btn');
+  if(back) back.addEventListener('click',()=>{state.view='home';render();});
+
+  document.querySelectorAll('[data-tab]').forEach(btn=>
+    btn.addEventListener('click',()=>{state.tab=btn.dataset.tab;render();})
+  );
+}
+
+render();init();
+</script>
+</body>
+</html>
