@@ -301,6 +301,24 @@ function renderCat(catId) {
           </div>`;
       }).join('');
     }
+  } else if(state.tab==='matches'){
+    if(!hasPools){
+      tabContent=`<div class="empty-state">No matches scheduled yet.</div>`;
+    } else {
+      tabContent = d.pools.map((pool,pi)=>{
+        const played=pool.matches.filter(m=>matchResult(m)).length;
+        return `
+          <div class="pool-section">
+            <div class="pool-header">
+              <div class="pool-label" style="color:${accent}">Pool ${poolLetters[pi]}</div>
+              <div class="pool-badge">${played}/${pool.matches.length} played</div>
+            </div>
+            <div class="matches-grid">
+              ${pool.matches.map(m=>renderMatch(m,catId,accent,`Pool ${poolLetters[pi]}`)).join('')}
+            </div>
+          </div>`;
+      }).join('');
+    }
   } else if(state.tab==='finals'){
     if(!hasPools||!d.finals){
       tabContent=`<div class="empty-state">Finals draw not yet available.</div>`;
@@ -328,6 +346,7 @@ function renderCat(catId) {
       </div>
       <div class="tab-bar">
         <button class="tab ${state.tab==='standings'?'active':''}" data-tab="standings">Standings</button>
+        <button class="tab ${state.tab==='matches'?'active':''}" data-tab="matches">Matches</button>
         <button class="tab ${state.tab==='finals'?'active':''}" data-tab="finals">Finals</button>
       </div>
       ${tabContent}
