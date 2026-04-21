@@ -172,18 +172,19 @@ const db = getDatabase(app);
 // ── SHEET CONFIG ──────────────────────────────────────────────────────────────
 const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRqh2Xvn6diYE3dKhKpLv8led0QWyfHlWTQYTPn2mr_wnNAzVErLS_jIwaSJwlNrFTzAdTz0BjdiRmB/pub?gid=0&single=true&output=csv';
 
-// Column header → category ID mapping (order matches sheet left-to-right)
+// Column header → category ID mapping
+// Punctuation is stripped before comparing so "3.5", "3.5+", "4.0" etc. match reliably
 const SHEET_COL_MAP = [
-  { header: 'Mens up to 3.5 Low Intermediate',    id: 'mens-3.5-below'   },
-  { header: 'Womens 3.5+ High Intermediate',       id: 'womens-3.5-plus'  },
-  { header: 'Womens up to 3.5 Low Intermediate',   id: 'womens-3.5-below' },
-  { header: 'Mens 3.5+ High Intermediate',         id: 'mens-3.5-plus'    },
-  { header: 'Mixed up to 3.5 Low Intermediate',    id: 'mixed-3.5-below'  },
-  { header: 'Mixed 3.5+ High Intermediate',        id: 'mixed-3.5-plus'   },
-  { header: 'All-in Beginners',                    id: 'all-beginners'    },
-  { header: 'All-in Advanced 4.0 min',             id: 'all-advanced'     },
-  { header: 'All-in 50+ No rating',                id: 'seniors-50plus'   },
-  { header: 'Junior Scramble',                     id: 'juniors'          },
+  { header: 'Mens up to 35 Low Intermediate',    id: 'mens-3.5-below'   },
+  { header: 'Womens 35 High Intermediate',        id: 'womens-3.5-plus'  },
+  { header: 'Womens up to 35 Low Intermediate',   id: 'womens-3.5-below' },
+  { header: 'Mens 35 High Intermediate',          id: 'mens-3.5-plus'    },
+  { header: 'Mixed up to 35 Low Intermediate',    id: 'mixed-3.5-below'  },
+  { header: 'Mixed 35 High Intermediate',         id: 'mixed-3.5-plus'   },
+  { header: 'Allin Beginners',                    id: 'all-beginners'    },
+  { header: 'Allin Advanced 40 min',              id: 'all-advanced'     },
+  { header: 'Allin 50 No rating',                 id: 'seniors-50plus'   },
+  { header: 'Junior Scramble',                    id: 'juniors'          },
 ];
 
 // ── CATEGORIES ────────────────────────────────────────────────────────────────
@@ -262,9 +263,11 @@ async function fetchSheetTeams() {
   const headers = rows[0];
   // Build col index → category id mapping
   const colMap = {};
+  // Normalise: lowercase, collapse whitespace, strip all punctuation
+  function norm(s) { return s.toLowerCase().replace(/[^a-z0-9\s]/g,'').replace(/\s+/g,' ').trim(); }
+
   headers.forEach((h, i) => {
-    const clean = h.replace(/\s+/g,' ').trim().toLowerCase();
-    const match = SHEET_COL_MAP.find(m => m.header.toLowerCase() === clean);
+    const match = SHEET_COL_MAP.find(m => norm(m.header) === norm(h));
     if (match) colMap[i] = match.id;
   });
 
