@@ -6,17 +6,11 @@
 <title>Admin · DBay Drift Pickleball 2026</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;500;600;700&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --gold:#F5C842;--neon-green:#39FF6A;--neon-pink:#FF3CAC;--red:#FF4545;
-    --bg:#0a0a0f;--bg2:#111118;--bg3:#1a1a24;
-    --border:rgba(255,255,255,0.08);--border-bright:rgba(255,255,255,0.18);
-    --text:#f0f0f0;--text-muted:rgba(240,240,240,0.5);--text-dim:rgba(240,240,240,0.28);
-  }
+  :root{--gold:#F5C842;--neon-green:#39FF6A;--neon-pink:#FF3CAC;--red:#FF4545;--bg:#0a0a0f;--bg2:#111118;--bg3:#1a1a24;--border:rgba(255,255,255,0.08);--border-bright:rgba(255,255,255,0.18);--text:#f0f0f0;--text-muted:rgba(240,240,240,0.5);--text-dim:rgba(240,240,240,0.28);}
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:'Barlow',sans-serif;}
   body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px);pointer-events:none;z-index:9999;}
 
-  /* ── HEADER ── */
   .site-header{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,69,69,0.25);padding:12px 24px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
   .logo-text{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:0.05em;color:var(--gold);line-height:1;}
   .logo-sub{font-size:11px;color:var(--text-muted);font-family:'Barlow Condensed',sans-serif;letter-spacing:0.1em;text-transform:uppercase;}
@@ -28,7 +22,6 @@
   .player-link{font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);text-decoration:none;border:1px solid var(--border);padding:5px 12px;border-radius:3px;transition:color 0.15s,border-color 0.15s;}
   .player-link:hover{color:var(--neon-green);border-color:var(--neon-green);}
 
-  /* ── HERO ── */
   .hero{position:relative;padding:36px 24px 28px;text-align:center;overflow:hidden;}
   .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(255,69,69,0.05) 0%,transparent 70%);pointer-events:none;}
   .event-tag{display:inline-block;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--red);border:1px solid rgba(255,69,69,0.3);padding:4px 14px;border-radius:2px;margin-bottom:12px;}
@@ -37,12 +30,11 @@
   .hero-meta{font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);}
   .hero-meta span{color:var(--neon-green);}
 
-  /* ── LAYOUT ── */
   .container{max-width:1100px;margin:0 auto;padding:0 20px 60px;}
   .section-label{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:14px;display:flex;align-items:center;gap:10px;}
   .section-label::after{content:'';flex:1;height:1px;background:var(--border);}
 
-  /* ── CATEGORY GRID ── */
+  /* CAT GRID */
   .cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-bottom:40px;}
   .cat-card{background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:18px 16px;cursor:pointer;transition:border-color 0.2s,transform 0.15s,box-shadow 0.2s;position:relative;overflow:hidden;}
   .cat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent);opacity:0.7;}
@@ -58,13 +50,11 @@
   .status-dot{width:5px;height:5px;border-radius:50%;background:var(--text-dim);}
   .status-dot.active{background:var(--neon-green);box-shadow:0 0 6px var(--neon-green);}
 
-  /* ── IMPORT PANEL ── */
+  /* IMPORT PANEL */
   .import-panel{background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:22px 24px;margin-bottom:32px;position:relative;overflow:hidden;}
   .import-panel::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),rgba(245,200,66,0.1));}
-  .import-header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:16px;}
-  .import-title{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text);margin-bottom:3px;}
-  .import-desc{font-size:12px;color:var(--text-muted);line-height:1.6;max-width:560px;}
-  .import-sheet-url{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:0.05em;color:var(--text-dim);margin-top:6px;word-break:break-all;}
+  .import-title{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text);margin-bottom:4px;}
+  .import-desc{font-size:12px;color:var(--text-muted);line-height:1.6;margin-bottom:16px;}
   .import-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
   .btn-import{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;padding:9px 18px;border-radius:3px;cursor:pointer;transition:all 0.15s;border:none;display:inline-flex;align-items:center;gap:7px;white-space:nowrap;}
   .btn-import.primary{background:var(--gold);color:#111;}
@@ -82,73 +72,97 @@
   .import-status.loading{display:flex;align-items:center;gap:9px;background:rgba(245,200,66,0.05);border:1px solid rgba(245,200,66,0.15);color:var(--gold);}
   .spin-sm{width:13px;height:13px;border:2px solid rgba(245,200,66,0.25);border-top-color:var(--gold);border-radius:50%;animation:spin 0.7s linear infinite;flex-shrink:0;}
 
-  /* ── BACK ── */
+  /* BACK */
   .back-btn{display:inline-flex;align-items:center;gap:8px;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);cursor:pointer;background:none;border:none;padding:0;margin-bottom:24px;transition:color 0.15s;}
   .back-btn:hover{color:var(--gold);}
 
-  /* ── BRACKET ── */
-  .bracket-header{display:flex;align-items:flex-start;gap:16px;margin-bottom:32px;padding-bottom:24px;border-bottom:1px solid var(--border);}
-  .bracket-accent{width:4px;border-radius:2px;align-self:stretch;min-height:50px;}
-  .bracket-title{font-family:'Bebas Neue',sans-serif;font-size:42px;letter-spacing:0.04em;color:var(--text);line-height:1;margin-bottom:4px;}
-  .bracket-meta-row{display:flex;gap:16px;flex-wrap:wrap;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);}
+  /* BRACKET HEADER */
+  .bracket-header{display:flex;align-items:flex-start;gap:16px;margin-bottom:28px;padding-bottom:20px;border-bottom:1px solid var(--border);}
+  .bracket-accent{width:4px;border-radius:2px;align-self:stretch;min-height:46px;}
+  .bracket-title{font-family:'Bebas Neue',sans-serif;font-size:38px;letter-spacing:0.04em;color:var(--text);line-height:1;margin-bottom:4px;}
+  .bracket-meta-row{display:flex;gap:12px;flex-wrap:wrap;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);}
 
-  .rounds-wrap{display:flex;gap:0;overflow-x:auto;padding-bottom:16px;}
-  .round-col{flex:0 0 240px;}
-  .round-gap{flex:0 0 24px;}
-  .round-spacer{flex:0 0 1px;background:var(--border);margin:40px 0;align-self:stretch;}
-  .round-head{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);padding:0 0 12px 0;border-bottom:1px solid var(--border);margin-bottom:16px;}
+  /* POOL SECTION */
+  .pool-section{margin-bottom:32px;}
+  .pool-header{display:flex;align-items:center;gap:12px;margin-bottom:16px;}
+  .pool-label{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:0.05em;}
+  .pool-badge{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;padding:3px 9px;border-radius:2px;background:rgba(255,255,255,0.06);color:var(--text-muted);border:1px solid var(--border);}
 
-  .match-card{background:var(--bg2);border:1px solid var(--border);border-radius:4px;margin-bottom:14px;overflow:hidden;}
+  /* MATCH CARDS */
+  .matches-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin-bottom:20px;}
+  .match-card{background:var(--bg2);border:1px solid var(--border);border-radius:4px;overflow:hidden;transition:border-color 0.2s;}
   .match-card.has-scores{border-color:rgba(255,255,255,0.12);}
-  .match-meta{display:flex;align-items:center;justify-content:space-between;padding:6px 10px;background:rgba(255,255,255,0.03);border-bottom:1px solid var(--border);font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-dim);}
+  .match-card.finals-card{border-color:rgba(245,200,66,0.2);}
+  .match-meta{display:flex;align-items:center;justify-content:space-between;padding:5px 10px;background:rgba(255,255,255,0.03);border-bottom:1px solid var(--border);font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-dim);}
   .done-tag{background:rgba(57,255,106,0.12);color:var(--neon-green);font-size:9px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;padding:2px 6px;border-radius:2px;}
-  .match-team{display:flex;align-items:center;justify-content:space-between;padding:10px 10px 10px 12px;border-bottom:1px solid var(--border);gap:8px;}
+  .match-team{display:flex;align-items:center;justify-content:space-between;padding:9px 10px 9px 12px;border-bottom:1px solid var(--border);gap:8px;}
   .match-team:last-of-type{border-bottom:none;}
-  .team-name{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:500;color:var(--text-muted);flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-  .team-name.winner{color:var(--text);font-weight:600;}
-  .team-name.tbd{color:var(--text-dim);font-style:italic;font-size:12px;}
+  .team-name-cell{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:500;color:var(--text-muted);flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .team-name-cell.winner{color:var(--text);font-weight:600;}
+  .team-name-cell.tbd{color:var(--text-dim);font-style:italic;font-size:11px;}
   .score-num{font-family:'Bebas Neue',sans-serif;font-size:20px;min-width:22px;text-align:center;color:var(--text-dim);}
   .score-num.win{color:var(--neon-green);}
-  .score-num.lose{color:rgba(240,240,240,0.22);}
-  .score-input{width:44px;height:30px;background:rgba(255,255,255,0.05);border:1px solid var(--border-bright);border-radius:3px;color:var(--text);text-align:center;font-family:'Bebas Neue',sans-serif;font-size:17px;outline:none;transition:border-color 0.15s,background 0.15s;}
+  .score-num.lose{color:rgba(240,240,240,0.2);}
+  .score-input{width:44px;height:28px;background:rgba(255,255,255,0.05);border:1px solid var(--border-bright);border-radius:3px;color:var(--text);text-align:center;font-family:'Bebas Neue',sans-serif;font-size:16px;outline:none;transition:border-color 0.15s,background 0.15s;}
   .score-input:focus{border-color:var(--accent-local,var(--gold));background:rgba(255,255,255,0.08);}
   .winner-bar{height:2px;transform-origin:left;transform:scaleX(0);transition:transform 0.4s ease;}
   .winner-bar.show{transform:scaleX(1);}
 
-  /* ── TEAM EDITOR ── */
-  .team-editor{margin-top:32px;padding-top:24px;border-top:1px solid var(--border);}
-  .team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;margin-bottom:16px;}
+  /* STANDINGS TABLE */
+  .standings{background:var(--bg2);border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-bottom:8px;}
+  .standings-head{display:grid;grid-template-columns:28px 1fr 36px 36px 36px 44px 52px;padding:7px 12px;background:rgba(255,255,255,0.03);border-bottom:1px solid var(--border);}
+  .sh{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);text-align:center;}
+  .sh:nth-child(2){text-align:left;}
+  .standings-row{display:grid;grid-template-columns:28px 1fr 36px 36px 36px 44px 52px;padding:8px 12px;border-bottom:1px solid var(--border);align-items:center;}
+  .standings-row:last-child{border-bottom:none;}
+  .standings-row.advances{background:rgba(57,255,106,0.04);}
+  .sr-rank{font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--text-dim);text-align:center;}
+  .sr-name{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:500;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .sr-name.tbd{color:var(--text-dim);font-style:italic;font-size:11px;}
+  .sr-cell{font-family:'Bebas Neue',sans-serif;font-size:15px;color:var(--text-muted);text-align:center;}
+  .sr-pts{font-family:'Bebas Neue',sans-serif;font-size:17px;text-align:center;color:var(--text-dim);}
+  .sr-pts.has-pts{color:var(--neon-green);}
+  .advances-tag{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--neon-green);background:rgba(57,255,106,0.1);border:1px solid rgba(57,255,106,0.2);padding:1px 5px;border-radius:2px;margin-left:6px;white-space:nowrap;}
+
+  /* TEAM EDITOR */
+  .team-editor-panel{background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:20px 24px;margin-bottom:24px;}
+  .team-editor-panel::before{content:'';display:block;height:2px;background:linear-gradient(90deg,var(--border-bright),transparent);margin:-20px -24px 16px;}
+  .team-count-row{display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap;}
+  .team-count-label{font-family:'Barlow Condensed',sans-serif;font-size:13px;color:var(--text-muted);letter-spacing:0.05em;}
+  .team-count-input{width:64px;background:var(--bg3);border:1px solid var(--border-bright);border-radius:3px;color:var(--text);font-family:'Bebas Neue',sans-serif;font-size:18px;padding:5px 10px;text-align:center;outline:none;}
+  .team-count-input:focus{border-color:var(--gold);}
+  .btn-rebuild{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;padding:7px 14px;border-radius:3px;cursor:pointer;background:rgba(245,200,66,0.12);color:var(--gold);border:1px solid rgba(245,200,66,0.3);transition:all 0.15s;}
+  .btn-rebuild:hover{background:rgba(245,200,66,0.2);}
+  .team-inputs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;margin-bottom:16px;}
   .team-row{display:flex;align-items:center;gap:8px;}
   .team-idx{font-family:'Bebas Neue',sans-serif;font-size:14px;color:var(--text-dim);min-width:20px;text-align:center;}
   .team-input{flex:1;background:var(--bg3);border:1px solid var(--border-bright);border-radius:3px;color:var(--text);font-family:'Barlow Condensed',sans-serif;font-size:14px;padding:7px 10px;outline:none;transition:border-color 0.15s;}
   .team-input:focus{border-color:var(--gold);}
-  .danger-zone{margin-top:20px;display:flex;gap:10px;flex-wrap:wrap;}
+  .danger-zone{display:flex;gap:10px;flex-wrap:wrap;padding-top:14px;border-top:1px solid var(--border);}
   .btn-danger{font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,69,69,0.5);background:none;border:1px solid rgba(255,69,69,0.2);border-radius:3px;padding:6px 16px;cursor:pointer;transition:all 0.15s;}
   .btn-danger:hover{color:var(--red);border-color:var(--red);background:rgba(255,69,69,0.05);}
 
-  /* ── MISC ── */
+  /* FINALS SECTION */
+  .finals-section{margin-top:8px;}
+  .finals-note{font-size:12px;color:var(--text-dim);font-family:'Barlow Condensed',sans-serif;letter-spacing:0.06em;margin-bottom:14px;padding:8px 12px;background:rgba(245,200,66,0.04);border:1px solid rgba(245,200,66,0.1);border-radius:3px;}
+
   .loading{display:flex;align-items:center;justify-content:center;padding:80px;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);gap:10px;}
   .spin{width:16px;height:16px;border:2px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin 0.8s linear infinite;}
   @keyframes spin{to{transform:rotate(360deg);}}
   #toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--bg3);border:1px solid var(--border-bright);color:var(--text);font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:0.08em;padding:10px 20px;border-radius:4px;transition:transform 0.3s ease;z-index:1000;white-space:nowrap;}
   #toast.show{transform:translateX(-50%) translateY(0);}
-  @media(max-width:640px){.cat-grid{grid-template-columns:1fr 1fr;}.container{padding:0 12px 40px;}.import-actions{flex-direction:column;align-items:stretch;}}
+  @media(max-width:640px){.cat-grid{grid-template-columns:1fr 1fr;}.container{padding:0 12px 40px;}.import-actions{flex-direction:column;align-items:stretch;}.standings-head,.standings-row{grid-template-columns:24px 1fr 30px 30px 30px 38px 44px;padding:6px 8px;}}
 </style>
 </head>
 <body>
-
 <header class="site-header">
-  <div>
-    <div class="logo-text">DBay Drift</div>
-    <div class="logo-sub">Pickleball 2026</div>
-  </div>
+  <div><div class="logo-text">DBay Drift</div><div class="logo-sub">Pickleball 2026</div></div>
   <div class="admin-badge">Admin</div>
   <div class="header-right">
     <span id="conn-status" class="offline">Connecting…</span>
     <a href="players.html" class="player-link">Player View →</a>
   </div>
 </header>
-
 <div id="root"></div>
 <div id="toast"></div>
 
@@ -165,29 +179,24 @@ const firebaseConfig = {
   messagingSenderId: "488263250252",
   appId: "1:488263250252:web:f661c24a591d85b4505fe9"
 };
-
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
 // ── SHEET CONFIG ──────────────────────────────────────────────────────────────
 const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRqh2Xvn6diYE3dKhKpLv8led0QWyfHlWTQYTPn2mr_wnNAzVErLS_jIwaSJwlNrFTzAdTz0BjdiRmB/pub?gid=0&single=true&output=csv';
-
-// Column header → category ID mapping
-// Punctuation is stripped before comparing so "3.5", "3.5+", "4.0" etc. match reliably
 const SHEET_COL_MAP = [
-  { header: 'Mens up to 35 Low Intermediate',    id: 'mens-35-below'   },
-  { header: 'Womens 35 High Intermediate',        id: 'womens-35-plus'  },
-  { header: 'Womens up to 35 Low Intermediate',   id: 'womens-35-below' },
-  { header: 'Mens 35 High Intermediate',          id: 'mens-35-plus'    },
-  { header: 'Mixed up to 35 Low Intermediate',    id: 'mixed-35-below'  },
-  { header: 'Mixed 35 High Intermediate',         id: 'mixed-35-plus'   },
-  { header: 'Allin Beginners',                    id: 'all-beginners'    },
-  { header: 'Allin Advanced 40 min',              id: 'all-advanced'     },
-  { header: 'Allin 50 No rating',                 id: 'seniors-50plus'   },
-  { header: 'Junior Scramble',                    id: 'juniors'          },
+  { header:'Mens up to 35 Low Intermediate',  id:'mens-35-below'   },
+  { header:'Womens 35 High Intermediate',      id:'womens-35-plus'  },
+  { header:'Womens up to 35 Low Intermediate', id:'womens-35-below' },
+  { header:'Mens 35 High Intermediate',        id:'mens-35-plus'    },
+  { header:'Mixed up to 35 Low Intermediate',  id:'mixed-35-below'  },
+  { header:'Mixed 35 High Intermediate',       id:'mixed-35-plus'   },
+  { header:'Allin Beginners',                  id:'all-beginners'   },
+  { header:'Allin Advanced 40 min',            id:'all-advanced'    },
+  { header:'Allin 50 No rating',               id:'seniors-50plus'  },
+  { header:'Junior Scramble',                  id:'juniors'         },
 ];
 
-// ── CATEGORIES ────────────────────────────────────────────────────────────────
 const CATEGORIES = [
   { id:'mens-35-below',   name:"Men's 3.5 & Below",   sub:"Low Intermediate",   type:"MEN",    accent:'#3CEFFF' },
   { id:'mens-35-plus',    name:"Men's 3.5+",           sub:"High Intermediate",  type:"MEN",    accent:'#3CEFFF' },
@@ -195,240 +204,333 @@ const CATEGORIES = [
   { id:'womens-35-plus',  name:"Women's 3.5+",         sub:"High Intermediate",  type:"WOMEN",  accent:'#FF3CAC' },
   { id:'mixed-35-below',  name:"Mixed 3.5 & Below",    sub:"Low Intermediate",   type:"MIXED",  accent:'#39FF6A' },
   { id:'mixed-35-plus',   name:"Mixed 3.5+",           sub:"High Intermediate",  type:"MIXED",  accent:'#39FF6A' },
-  { id:'all-beginners',    name:"All-In Beginners",      sub:"Open / No rating",   type:"ALL-IN", accent:'#F5C842' },
-  { id:'all-advanced',     name:"All-In Advanced",       sub:"4.0+ rating",        type:"ALL-IN", accent:'#F5C842' },
-  { id:'seniors-50plus',   name:"50+ Seniors",           sub:"No rating required", type:"50+",    accent:'#C084FC' },
-  { id:'juniors',          name:"Junior Scramble",       sub:"Youth division",     type:"JUNIOR", accent:'#FB923C' },
+  { id:'all-beginners',   name:"All-In Beginners",      sub:"Open / No rating",   type:"ALL-IN", accent:'#F5C842' },
+  { id:'all-advanced',    name:"All-In Advanced",       sub:"4.0+ rating",        type:"ALL-IN", accent:'#F5C842' },
+  { id:'seniors-50plus',  name:"50+ Seniors",           sub:"No rating required", type:"50+",    accent:'#C084FC' },
+  { id:'juniors',         name:"Junior Scramble",       sub:"Youth division",     type:"JUNIOR", accent:'#FB923C' },
 ];
 
-// ── BRACKET HELPERS ───────────────────────────────────────────────────────────
-function defaultBracket() {
+// ── ROUND ROBIN ENGINE ────────────────────────────────────────────────────────
+// Determine pool structure given n teams
+function poolStructure(n) {
+  if (n <= 1) return [n];
+  if (n <= 6)  return [n];           // 1 pool
+  if (n <= 9)  return splitPools(n, 2);
+  if (n <= 12) return splitPools(n, 3);
+  return splitPools(n, 4);           // 13–16
+}
+
+function splitPools(n, numPools) {
+  const base = Math.floor(n / numPools);
+  const extra = n % numPools;
+  return Array.from({length: numPools}, (_, i) => base + (i < extra ? 1 : 0));
+}
+
+// Generate round-robin matches for n teams (0-indexed team slots)
+// Returns array of {a, b} pairs
+function roundRobinMatches(n) {
+  const matches = [];
+  for (let i = 0; i < n - 1; i++)
+    for (let j = i + 1; j < n; j++)
+      matches.push({a: i, b: j});
+  return matches;
+}
+
+// Build a full category data structure from a list of team names
+function buildCategory(teams) {
+  const activeTeams = teams.filter(t => t && t !== 'TBD');
+  const n = activeTeams.length;
+  if (n < 2) {
+    return { teams, pools: [], finals: { sf1: null, sf2: null, final: null }, advancersPerPool: 0 };
+  }
+
+  const sizes = poolStructure(n);
+  const numPools = sizes.length;
+
+  // Assign teams to pools
+  let idx = 0;
+  const pools = sizes.map((size, pi) => {
+    const poolTeams = activeTeams.slice(idx, idx + size);
+    idx += size;
+    // Generate round-robin match list for this pool (store as global team indices)
+    const baseIdx = activeTeams.indexOf(poolTeams[0]);
+    const matches = roundRobinMatches(size).map((m, mi) => ({
+      id: `p${pi}-m${mi}`,
+      pool: pi,
+      a: poolTeams[m.a],    // team name
+      b: poolTeams[m.b],
+      sA: '', sB: '', status: 'pending'
+    }));
+    return { poolIdx: pi, teamNames: poolTeams, matches };
+  });
+
+  // How many advance from each pool?
+  // We need exactly 4 teams total for SF (2 per pool for ≤2 pools, 1 per pool for 3-4 pools + top wildcard)
+  let advancersPerPool = numPools <= 2 ? 2 : 1;
+  // Special: 3 pools → need 4 advancers: top 1 from each + best 2nd-placed (handled via wildcard logic)
+  // For simplicity, always advance enough to fill 4 SF spots
+  const totalAdvancers = numPools <= 2 ? numPools * 2 : 4;
+
   return {
-    teams: ['TBD','TBD','TBD','TBD','TBD','TBD','TBD','TBD'],
-    matches: [
-      { id:0, round:'QF', a:0, b:7, sA:'', sB:'', status:'pending' },
-      { id:1, round:'QF', a:3, b:4, sA:'', sB:'', status:'pending' },
-      { id:2, round:'QF', a:2, b:5, sA:'', sB:'', status:'pending' },
-      { id:3, round:'QF', a:1, b:6, sA:'', sB:'', status:'pending' },
-      { id:4, round:'SF', a:null, b:null, sA:'', sB:'', status:'pending' },
-      { id:5, round:'SF', a:null, b:null, sA:'', sB:'', status:'pending' },
-      { id:6, round:'F',  a:null, b:null, sA:'', sB:'', status:'pending' },
-    ]
+    teams,
+    pools,
+    advancersPerPool,
+    totalAdvancers,
+    finals: {
+      sf1: { id:'sf1', label:'Semi-final 1', a: null, b: null, sA:'', sB:'', status:'pending' },
+      sf2: { id:'sf2', label:'Semi-final 2', a: null, b: null, sA:'', sB:'', status:'pending' },
+      final: { id:'final', label:'Final',       a: null, b: null, sA:'', sB:'', status:'pending' },
+    }
   };
 }
 
-function fixBracket(b) {
-  if (!b) return defaultBracket();
-  if (b.matches && !Array.isArray(b.matches)) b.matches = Object.values(b.matches);
-  if (!b.teams) b.teams = ['TBD','TBD','TBD','TBD','TBD','TBD','TBD','TBD'];
-  return b;
+// Compute pool standings from pool match results
+function poolStandings(pool, allTeams) {
+  const stats = {};
+  pool.teamNames.forEach(name => {
+    stats[name] = { name, w:0, d:0, l:0, pf:0, pa:0, pts:0, played:0 };
+  });
+  pool.matches.forEach(m => {
+    const res = matchResult(m);
+    if (!res) return;
+    if (!stats[m.a] || !stats[m.b]) return;
+    stats[m.a].played++; stats[m.b].played++;
+    stats[m.a].pf += res.sA; stats[m.a].pa += res.sB;
+    stats[m.b].pf += res.sB; stats[m.b].pa += res.sA;
+    if (res.sA > res.sB) { stats[m.a].w++; stats[m.a].pts+=3; stats[m.b].l++; }
+    else if (res.sB > res.sA) { stats[m.b].w++; stats[m.b].pts+=3; stats[m.a].l++; }
+    else { stats[m.a].d++; stats[m.a].pts+=1; stats[m.b].d++; stats[m.b].pts+=1; }
+  });
+  return Object.values(stats).sort((a,b) =>
+    b.pts - a.pts || (b.pf-b.pa) - (a.pf-a.pa) || b.pf - a.pf
+  );
 }
 
-// ── CSV PARSER ────────────────────────────────────────────────────────────────
-function parseCSV(text) {
-  // Split into lines, handle \r\n and \r
-  const lines = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n').split('\n');
+function matchResult(m) {
+  if (m.sA === '' || m.sB === '' || m.sA === null || m.sB === null) return null;
+  const sA = parseInt(m.sA), sB = parseInt(m.sB);
+  if (isNaN(sA) || isNaN(sB)) return null;
+  return { sA, sB };
+}
 
-  // Parse a single CSV line respecting quoted fields
-  function parseLine(line) {
-    const fields = [];
-    let cur = '', inQuote = false;
-    for (let i = 0; i < line.length; i++) {
-      const ch = line[i];
-      if (ch === '"') {
-        if (inQuote && line[i+1] === '"') { cur += '"'; i++; }
-        else inQuote = !inQuote;
-      } else if (ch === ',' && !inQuote) {
-        fields.push(cur.trim()); cur = '';
-      } else {
-        cur += ch;
-      }
-    }
-    fields.push(cur.trim());
-    return fields;
+// After pool play, seed the finals from standings
+function seedFinals(catData) {
+  if (!catData.pools || catData.pools.length === 0) return catData;
+  const np = catData.pools.length;
+
+  // Get top N from each pool
+  const poolTops = catData.pools.map(pool => poolStandings(pool, catData.teams));
+
+  let sf1A = null, sf1B = null, sf2A = null, sf2B = null;
+
+  if (np === 1) {
+    // 1 pool: 1st vs 4th, 2nd vs 3rd  (if enough teams, otherwise 1st vs 3rd, 2nd vs 4th)
+    const st = poolTops[0];
+    sf1A = st[0]?.name || null;
+    sf1B = st[3]?.name || null;
+    sf2A = st[1]?.name || null;
+    sf2B = st[2]?.name || null;
+  } else if (np === 2) {
+    // 2 pools: A1 vs B2, B1 vs A2
+    sf1A = poolTops[0][0]?.name || null;
+    sf1B = poolTops[1][1]?.name || null;
+    sf2A = poolTops[1][0]?.name || null;
+    sf2B = poolTops[0][1]?.name || null;
+  } else {
+    // 3-4 pools: pool winners + best runner-up fill 4 SF spots
+    // Collect all 1sts, then sort runner-ups for wildcard
+    const winners = poolTops.map(st => st[0]?.name || null);
+    const runnerUps = poolTops.map(st => st[1]).filter(Boolean)
+      .sort((a,b) => b.pts-a.pts || (b.pf-b.pa)-(a.pf-a.pa) || b.pf-a.pf);
+    const semis = [winners[0], winners[1], winners[2] || runnerUps[0]?.name, winners[3] || runnerUps[1]?.name].filter(Boolean);
+    sf1A = semis[0] || null; sf1B = semis[3] || null;
+    sf2A = semis[1] || null; sf2B = semis[2] || null;
   }
 
-  return lines.map(parseLine);
+  catData.finals.sf1 = { ...catData.finals.sf1, a: sf1A, b: sf1B };
+  catData.finals.sf2 = { ...catData.finals.sf2, a: sf2A, b: sf2B };
+  return catData;
 }
 
-async function fetchSheetTeams() {
-  const res = await fetch(SHEET_CSV_URL);
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  const text = await res.text();
-  const rows = parseCSV(text);
+function seedFinal(catData) {
+  const sf1res = matchResult(catData.finals.sf1);
+  const sf2res = matchResult(catData.finals.sf2);
+  const sf1win = sf1res ? (sf1res.sA > sf1res.sB ? catData.finals.sf1.a : catData.finals.sf1.b) : null;
+  const sf2win = sf2res ? (sf2res.sA > sf2res.sB ? catData.finals.sf2.a : catData.finals.sf2.b) : null;
+  catData.finals.final = { ...catData.finals.final, a: sf1win, b: sf2win };
+  return catData;
+}
 
-  if (rows.length === 0) throw new Error('Empty spreadsheet');
-
-  // Row 0 is headers
-  const headers = rows[0];
-  // Build col index → category id mapping
-  const colMap = {};
-  // Normalise: lowercase, collapse whitespace, strip all punctuation
-  function norm(s) { return s.toLowerCase().replace(/[^a-z0-9\s]/g,'').replace(/\s+/g,' ').trim(); }
-
-  headers.forEach((h, i) => {
-    const match = SHEET_COL_MAP.find(m => norm(m.header) === norm(h));
-    if (match) colMap[i] = match.id;
-  });
-
-  // Collect teams per category from data rows
-  const result = {};
-  for (let r = 1; r < rows.length; r++) {
-    const row = rows[r];
-    row.forEach((cell, i) => {
-      const catId = colMap[i];
-      if (!catId) return;
-      const val = cell.trim();
-      if (!val) return;
-      if (!result[catId]) result[catId] = [];
-      result[catId].push(val);
+// ── FIREBASE HELPERS ──────────────────────────────────────────────────────────
+function fixCatData(d) {
+  if (!d) return null;
+  // Firebase turns arrays into objects — fix pools and their matches
+  if (d.pools && !Array.isArray(d.pools)) d.pools = Object.values(d.pools);
+  if (d.pools) {
+    d.pools = d.pools.map(pool => {
+      if (pool.matches && !Array.isArray(pool.matches)) pool.matches = Object.values(pool.matches);
+      if (pool.teamNames && !Array.isArray(pool.teamNames)) pool.teamNames = Object.values(pool.teamNames);
+      return pool;
     });
   }
-
-  return result;
+  if (d.teams && !Array.isArray(d.teams)) d.teams = Object.values(d.teams);
+  return d;
 }
 
 // ── STATE ─────────────────────────────────────────────────────────────────────
-let state = { view:'home', catId:null, brackets:{}, loading:true };
+let state = { view:'home', catId:null, catData:{}, loading:true };
 
 async function init() {
   onValue(ref(db, '.info/connected'), snap => {
     const el = document.getElementById('conn-status');
     if (el) { el.textContent = snap.val() ? 'Online' : 'Offline'; el.className = snap.val() ? 'online' : 'offline'; }
   });
-
-  const snap = await get(ref(db, 'brackets'));
+  const snap = await get(ref(db, 'cats'));
   const existing = snap.exists() ? snap.val() : {};
   for (const cat of CATEGORIES) {
-    state.brackets[cat.id] = fixBracket(existing[cat.id]);
+    state.catData[cat.id] = fixCatData(existing[cat.id]) || { teams:[], pools:[], finals:{sf1:null,sf2:null,final:null} };
   }
-
-  onValue(ref(db, 'brackets'), snap => {
+  onValue(ref(db, 'cats'), snap => {
     if (!snap.exists()) return;
     const data = snap.val();
     for (const catId of Object.keys(data)) {
-      state.brackets[catId] = fixBracket(data[catId]);
+      state.catData[catId] = fixCatData(data[catId]);
     }
     if (!state.loading) render();
   });
-
   state.loading = false;
   render();
 }
 
-async function saveBracket(catId) {
-  await set(ref(db, 'brackets/' + catId), state.brackets[catId]);
+async function saveCat(catId) {
+  await set(ref(db, 'cats/' + catId), state.catData[catId]);
 }
-
 async function saveAll() {
-  await set(ref(db, 'brackets'), state.brackets);
+  await set(ref(db, 'cats'), state.catData);
 }
 
-// ── IMPORT ACTIONS ────────────────────────────────────────────────────────────
+// ── IMPORT ────────────────────────────────────────────────────────────────────
+function norm(s) { return s.toLowerCase().replace(/[^a-z0-9\s]/g,'').replace(/\s+/g,' ').trim(); }
+
+function parseCSV(text) {
+  const lines = text.replace(/\r\n/g,'\n').replace(/\r/g,'\n').split('\n');
+  function parseLine(line) {
+    const fields=[]; let cur='',inQ=false;
+    for(let i=0;i<line.length;i++){const ch=line[i];if(ch==='"'){if(inQ&&line[i+1]==='"'){cur+='"';i++;}else inQ=!inQ;}else if(ch===','&&!inQ){fields.push(cur.trim());cur='';}else cur+=ch;}
+    fields.push(cur.trim()); return fields;
+  }
+  return lines.map(parseLine);
+}
+
+async function fetchSheetTeams() {
+  const res = await fetch(SHEET_CSV_URL);
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  const rows = parseCSV(await res.text());
+  if (!rows.length) throw new Error('Empty sheet');
+  const headers = rows[0];
+  const colMap = {};
+  headers.forEach((h, i) => {
+    const m = SHEET_COL_MAP.find(m => norm(m.header) === norm(h));
+    if (m) colMap[i] = m.id;
+  });
+  const result = {};
+  for (let r = 1; r < rows.length; r++) {
+    rows[r].forEach((cell, i) => {
+      const catId = colMap[i]; if (!catId) return;
+      const val = cell.trim(); if (!val) return;
+      if (!result[catId]) result[catId] = [];
+      result[catId].push(val);
+    });
+  }
+  return result;
+}
+
 async function doImport() {
-  setStatus('loading', 'Fetching spreadsheet…');
-  setBtns(true);
+  setStatus('loading','Fetching spreadsheet…'); setBtns(true);
   try {
     const sheetTeams = await fetchSheetTeams();
-    let totalTeams = 0, catsUpdated = 0;
-
+    let totalT=0, catsU=0;
     for (const cat of CATEGORIES) {
       const teams = sheetTeams[cat.id];
-      if (!teams || teams.length === 0) continue;
-      const padded = [...teams.slice(0, 8)];
-      while (padded.length < 8) padded.push('TBD');
-      state.brackets[cat.id].teams = padded;
-      totalTeams += teams.slice(0, 8).filter(t => t && t !== 'TBD').length;
-      catsUpdated++;
+      if (!teams || !teams.length) continue;
+      // Rebuild the category with new teams, preserving any existing scores if team names match
+      const existing = state.catData[cat.id];
+      const newCat = buildCategory(teams);
+      // Try to restore scores for matches where both team names are the same
+      if (existing && existing.pools) restoreScores(newCat, existing);
+      state.catData[cat.id] = newCat;
+      totalT += teams.length; catsU++;
     }
-
     await saveAll();
-    setStatus('success', `✓ Imported ${totalTeams} teams across ${catsUpdated} categories`);
-    toast('Teams imported ✓');
-    render();
-  } catch (e) {
+    setStatus('success', `✓ Imported ${totalT} teams across ${catsU} categories`);
+    toast('Teams imported ✓'); render();
+  } catch(e) {
     console.error(e);
     setStatus('error', `Could not load spreadsheet: ${e.message}`);
-  } finally {
-    setBtns(false);
-  }
+  } finally { setBtns(false); }
 }
 
-async function doResetTeams() {
-  if (!confirm('Reset ALL team names across ALL categories to TBD? Scores will not be affected.')) return;
-  for (const cat of CATEGORIES) {
-    state.brackets[cat.id].teams = ['TBD','TBD','TBD','TBD','TBD','TBD','TBD','TBD'];
-  }
-  await saveAll();
-  toast('All team names cleared');
-  setStatus('', '');
-  render();
-}
-
-function setStatus(type, msg) {
-  const el = document.getElementById('import-status');
-  if (!el) return;
-  el.className = 'import-status' + (type ? ' ' + type : '');
-  el.innerHTML = type === 'loading'
-    ? `<div class="spin-sm"></div><span>${msg}</span>`
-    : msg;
-}
-
-function setBtns(disabled) {
-  ['btn-import','btn-refresh','btn-reset-teams'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.disabled = disabled;
+function restoreScores(newCat, oldCat) {
+  // Build a lookup of old match scores by team pair
+  const scoreMap = {};
+  if (oldCat.pools) oldCat.pools.forEach(pool => {
+    (pool.matches||[]).forEach(m => {
+      if (m.sA !== '' && m.sB !== '') {
+        const key = [m.a,m.b].sort().join('||');
+        scoreMap[key] = { sA: m.sA, sB: m.sB, status: m.status };
+      }
+    });
+  });
+  newCat.pools.forEach(pool => {
+    pool.matches.forEach(m => {
+      const key = [m.a,m.b].sort().join('||');
+      if (scoreMap[key]) { m.sA = scoreMap[key].sA; m.sB = scoreMap[key].sB; m.status = scoreMap[key].status; }
+    });
   });
 }
 
-// ── UTILS ─────────────────────────────────────────────────────────────────────
+async function doResetTeams() {
+  if (!confirm('Reset ALL team names and draws across ALL categories? Scores will be cleared.')) return;
+  for (const cat of CATEGORIES) state.catData[cat.id] = { teams:[], pools:[], finals:{sf1:null,sf2:null,final:null} };
+  await saveAll();
+  toast('All categories reset'); setStatus('',''); render();
+}
+
+function setStatus(type, msg) {
+  const el = document.getElementById('import-status'); if (!el) return;
+  el.className = 'import-status' + (type ? ' '+type : '');
+  el.innerHTML = type==='loading' ? `<div class="spin-sm"></div><span>${msg}</span>` : msg;
+}
+function setBtns(dis) {
+  ['btn-import','btn-refresh','btn-reset-teams'].forEach(id => { const el=document.getElementById(id); if(el) el.disabled=dis; });
+}
+
+// ── TOAST ─────────────────────────────────────────────────────────────────────
 function toast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg; t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2500);
-}
-
-function getResult(bracket, mid) {
-  const m = bracket.matches[mid];
-  if (!m || m.sA === '' || m.sB === '') return null;
-  const sa = parseInt(m.sA), sb = parseInt(m.sB);
-  if (isNaN(sa) || isNaN(sb)) return null;
-  return { aWins: sa > sb, sa, sb };
-}
-
-function teamName(bracket, slot) {
-  if (slot === null || slot === undefined) return null;
-  return bracket.teams[slot] || 'TBD';
-}
-
-function catHasScores(id) {
-  const b = state.brackets[id]; if (!b) return false;
-  return b.matches.some(m => m.sA !== '' || m.sB !== '');
-}
-
-function catTeamCount(id) {
-  const b = state.brackets[id]; if (!b) return 0;
-  return b.teams.filter(t => t && t !== 'TBD').length;
-}
-
-function advance(bracket, mid, res) {
-  const map = { 0:{t:4,s:'a'}, 1:{t:4,s:'b'}, 2:{t:5,s:'a'}, 3:{t:5,s:'b'}, 4:{t:6,s:'a'}, 5:{t:6,s:'b'} };
-  const adv = map[mid]; if (!adv) return;
-  const src = bracket.matches[mid];
-  bracket.matches[adv.t][adv.s] = res.aWins ? src.a : src.b;
+  const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2500);
 }
 
 // ── RENDER ────────────────────────────────────────────────────────────────────
 function render() {
   const root = document.getElementById('root');
-  if (state.loading) { root.innerHTML = `<div class="loading"><div class="spin"></div> Loading…</div>`; return; }
-  root.innerHTML = state.view === 'home' ? renderHome() : renderBracket(state.catId);
+  if (state.loading) { root.innerHTML=`<div class="loading"><div class="spin"></div> Loading…</div>`; return; }
+  root.innerHTML = state.view==='home' ? renderHome() : renderCat(state.catId);
   attach();
 }
 
-function renderHome() {
-  const totalTeams = CATEGORIES.reduce((acc, cat) => acc + catTeamCount(cat.id), 0);
+function catTeamCount(id) {
+  const d = state.catData[id];
+  return d && d.teams ? d.teams.filter(t=>t&&t!=='TBD').length : 0;
+}
+function catHasScores(id) {
+  const d = state.catData[id];
+  if (!d || !d.pools) return false;
+  return d.pools.some(p => p.matches && p.matches.some(m => m.sA !== ''));
+}
 
+function renderHome() {
+  const totalTeams = CATEGORIES.reduce((s,c)=>s+catTeamCount(c.id),0);
   return `
     <div class="hero">
       <div class="event-tag">Admin Panel · Fast &amp; Furious DBay Drift</div>
@@ -437,10 +539,9 @@ function renderHome() {
       <div class="hero-meta">Saturday 16 May &nbsp;·&nbsp; <span>Moreton City Pickleball</span></div>
     </div>
     <div class="container">
-
       <div class="section-label">Categories — ${CATEGORIES.length} Divisions</div>
       <div class="cat-grid">
-        ${CATEGORIES.map((cat, i) => {
+        ${CATEGORIES.map((cat,i) => {
           const tc = catTeamCount(cat.id);
           return `
             <div class="cat-card" data-goto="${cat.id}" style="--accent:${cat.accent}">
@@ -450,12 +551,10 @@ function renderHome() {
               </div>
               <div class="cat-name">${cat.name}</div>
               <div class="cat-desc">${cat.sub}</div>
-              <div class="cat-team-count ${tc > 0 ? 'has-teams' : ''}">
-                ${tc > 0 ? `${tc} / 8 teams loaded` : 'No teams loaded'}
-              </div>
+              <div class="cat-team-count ${tc>0?'has-teams':''}">${tc>0?`${tc} teams entered`:'No teams loaded'}</div>
               <div class="cat-status">
-                <div class="status-dot ${catHasScores(cat.id) ? 'active' : ''}"></div>
-                ${catHasScores(cat.id) ? 'In progress' : 'Not started'}
+                <div class="status-dot ${catHasScores(cat.id)?'active':''}"></div>
+                ${catHasScores(cat.id)?'In progress':'Not started'}
               </div>
             </div>`;
         }).join('')}
@@ -463,67 +562,34 @@ function renderHome() {
 
       <div class="section-label">Spreadsheet Import</div>
       <div class="import-panel">
-        <div class="import-header">
-          <div>
-            <div class="import-title">Google Sheets · Event List</div>
-            <div class="import-desc">
-              Pulls team names from the registration spreadsheet and populates all categories at once.
-              Re-import anytime to pick up new registrations — existing scores are never affected.
-              ${totalTeams > 0 ? `<br><strong style="color:var(--gold)">${totalTeams} teams currently loaded across all categories.</strong>` : ''}
-            </div>
-            <div class="import-sheet-url">Source: Event List · published CSV</div>
-          </div>
+        <div class="import-title">Google Sheets · Event List</div>
+        <div class="import-desc">
+          Pulls team names from the registration spreadsheet. Automatically builds round-robin pools and finals draw.
+          Re-import anytime to pick up new registrations — existing scores are preserved where team names match.
+          ${totalTeams>0?`<strong style="color:var(--gold)">${totalTeams} teams currently loaded.</strong>`:''}
         </div>
         <div class="import-actions">
           <button class="btn-import primary" id="btn-import">↓ Import Teams</button>
           <button class="btn-import secondary" id="btn-refresh">↺ Refresh from Sheet</button>
-          <button class="btn-import danger-soft" id="btn-reset-teams">✕ Reset All Team Names</button>
+          <button class="btn-import danger-soft" id="btn-reset-teams">✕ Reset All</button>
         </div>
         <div class="import-status" id="import-status"></div>
       </div>
-
     </div>`;
 }
 
-function renderMatch(bracket, m, catId, accent) {
-  const res = getResult(bracket, m.id);
-  const nA = m.a !== null ? teamName(bracket, m.a) : null;
-  const nB = m.b !== null ? teamName(bracket, m.b) : null;
-  const aW = res ? res.aWins : false, bW = res ? !res.aWins : false;
-  const played = res !== null;
-  return `
-    <div class="match-card ${played ? 'has-scores' : ''}">
-      <div class="match-meta">
-        <span>Match ${m.id + 1}</span>
-        ${played ? '<span class="done-tag">Done</span>' : ''}
-      </div>
-      <div class="match-team">
-        <span class="team-name ${!nA ? 'tbd' : played ? (aW ? 'winner' : '') : ''}">${nA || 'TBD'}</span>
-        ${played
-          ? `<span class="score-num ${aW ? 'win' : 'lose'}">${m.sA}</span>`
-          : `<input class="score-input" type="number" min="0" max="99" placeholder="–" value="${m.sA}"
-              data-mid="${m.id}" data-side="A" data-catid="${catId}"
-              ${!nA || nA === 'TBD' ? 'disabled' : ''} style="--accent-local:${accent}">`}
-      </div>
-      <div class="match-team">
-        <span class="team-name ${!nB ? 'tbd' : played ? (bW ? 'winner' : '') : ''}">${nB || 'TBD'}</span>
-        ${played
-          ? `<span class="score-num ${bW ? 'win' : 'lose'}">${m.sB}</span>`
-          : `<input class="score-input" type="number" min="0" max="99" placeholder="–" value="${m.sB}"
-              data-mid="${m.id}" data-side="B" data-catid="${catId}"
-              ${!nB || nB === 'TBD' ? 'disabled' : ''} style="--accent-local:${accent}">`}
-      </div>
-      <div class="winner-bar ${played ? 'show' : ''}" style="background:${played ? accent : 'transparent'}"></div>
-    </div>`;
-}
-
-function renderBracket(catId) {
-  const cat = CATEGORIES.find(c => c.id === catId);
-  const bracket = state.brackets[catId];
+function renderCat(catId) {
+  const cat = CATEGORIES.find(c=>c.id===catId);
+  const d = state.catData[catId];
   const accent = cat.accent;
-  const qf = bracket.matches.filter(m => m.round === 'QF');
-  const sf = bracket.matches.filter(m => m.round === 'SF');
-  const fi = bracket.matches.filter(m => m.round === 'F');
+  const teams = (d && d.teams) ? d.teams.filter(t=>t&&t!=='TBD') : [];
+  const hasPools = d && d.pools && d.pools.length > 0;
+
+  // Seed finals from current standings before rendering
+  if (hasPools) {
+    seedFinals(d);
+    seedFinal(d);
+  }
 
   return `
     <div class="container" style="padding-top:24px;">
@@ -535,105 +601,294 @@ function renderBracket(catId) {
           <div class="bracket-meta-row">
             <span style="color:${accent}">${cat.sub}</span>
             <span style="color:var(--border-bright)">|</span>
-            <span>8 teams · Single elimination</span>
+            <span>${teams.length} teams</span>
+            ${hasPools ? `<span style="color:var(--border-bright)">|</span><span>${d.pools.length} pool${d.pools.length>1?'s':''} · Semi-finals · Final</span>` : ''}
           </div>
         </div>
       </div>
 
-      <div class="section-label">Bracket</div>
-      <div class="rounds-wrap">
-        <div class="round-col"><div class="round-head">Quarter-finals</div>${qf.map(m => renderMatch(bracket, m, catId, accent)).join('')}</div>
-        <div class="round-gap"></div><div class="round-spacer"></div><div class="round-gap"></div>
-        <div class="round-col"><div class="round-head">Semi-finals</div>${sf.map(m => renderMatch(bracket, m, catId, accent)).join('')}</div>
-        <div class="round-gap"></div><div class="round-spacer"></div><div class="round-gap"></div>
-        <div class="round-col"><div class="round-head">Final</div>${fi.map(m => renderMatch(bracket, m, catId, accent)).join('')}</div>
-      </div>
+      ${hasPools ? renderPools(d, catId, accent) : ''}
 
-      <div class="team-editor">
-        <div class="section-label">Team Names
-          <span style="font-size:10px;color:var(--text-dim);font-weight:400;letter-spacing:0.04em;text-transform:none;">— edit manually, or use Import on the home screen</span>
+      ${hasPools ? renderFinals(d, catId, accent) : ''}
+
+      ${renderTeamEditor(d, catId, accent)}
+    </div>`;
+}
+
+function renderPools(d, catId, accent) {
+  const poolLetters = ['A','B','C','D'];
+  return d.pools.map((pool, pi) => {
+    const standings = poolStandings(pool, d.teams);
+    const advCount = d.advancersPerPool || 2;
+    const totalPoolMatches = pool.matches.length;
+    const playedMatches = pool.matches.filter(m => matchResult(m)).length;
+
+    return `
+      <div class="pool-section">
+        <div class="pool-header">
+          <div class="pool-label" style="color:${accent}">Pool ${poolLetters[pi]}</div>
+          <div class="pool-badge">${pool.teamNames.length} teams · ${playedMatches}/${totalPoolMatches} played</div>
         </div>
-        <div class="team-grid">
-          ${bracket.teams.map((t, i) => `
-            <div class="team-row">
-              <span class="team-idx">${i + 1}</span>
-              <input class="team-input team-name-input" type="text"
-                value="${t === 'TBD' ? '' : t}" placeholder="Team ${i + 1}"
-                data-teamidx="${i}" data-catid="${catId}">
-            </div>`).join('')}
+
+        <div class="section-label" style="margin-bottom:10px;">Matches</div>
+        <div class="matches-grid">
+          ${pool.matches.map(m => renderMatch(m, catId, accent, `Pool ${poolLetters[pi]}`)).join('')}
         </div>
-        <div class="danger-zone">
-          <button class="btn-danger" id="reset-scores">Reset Scores</button>
-          <button class="btn-danger" id="reset-all">Reset Scores + Teams</button>
-        </div>
+
+        <div class="section-label" style="margin-bottom:10px;">Standings</div>
+        ${renderStandings(standings, advCount, d.pools.length)}
+      </div>`;
+  }).join('');
+}
+
+function renderStandings(standings, advCount, numPools) {
+  return `
+    <div class="standings">
+      <div class="standings-head">
+        <div class="sh">#</div><div class="sh" style="text-align:left">Team</div>
+        <div class="sh">P</div><div class="sh">W</div><div class="sh">L</div>
+        <div class="sh">+/−</div><div class="sh">Pts</div>
+      </div>
+      ${standings.map((row, i) => {
+        const diff = row.pf - row.pa;
+        const advances = i < advCount;
+        const isTbd = !row.name || row.name === 'TBD';
+        return `
+          <div class="standings-row ${advances?'advances':''}">
+            <div class="sr-rank">${i+1}</div>
+            <div class="sr-name ${isTbd?'tbd':''}">
+              ${isTbd ? 'TBD' : row.name}
+              ${advances ? '<span class="advances-tag">Advances</span>' : ''}
+            </div>
+            <div class="sr-cell">${row.played}</div>
+            <div class="sr-cell">${row.w}</div>
+            <div class="sr-cell">${row.l}</div>
+            <div class="sr-cell" style="color:${diff>0?'var(--neon-green)':diff<0?'rgba(255,80,80,0.7)':'var(--text-dim)'}">${diff>0?'+':''}${diff}</div>
+            <div class="sr-pts ${row.pts>0?'has-pts':''}">${row.pts}</div>
+          </div>`;
+      }).join('')}
+    </div>`;
+}
+
+function renderFinals(d, catId, accent) {
+  const sf1 = d.finals.sf1;
+  const sf2 = d.finals.sf2;
+  const fin = d.finals.final;
+  const allPoolsDone = d.pools.every(p => p.matches.every(m => matchResult(m)));
+
+  return `
+    <div class="finals-section">
+      <div class="section-label">Finals</div>
+      ${!allPoolsDone ? `<div class="finals-note">Semi-final seedings will be confirmed once all pool matches are complete. Teams shown are current projections based on standings so far.</div>` : ''}
+      <div class="matches-grid">
+        ${sf1 ? renderFinalMatch(sf1, catId, accent) : ''}
+        ${sf2 ? renderFinalMatch(sf2, catId, accent) : ''}
+        ${fin ? renderFinalMatch(fin, catId, accent) : ''}
       </div>
     </div>`;
 }
 
+function renderMatch(m, catId, accent, poolLabel) {
+  const res = matchResult(m);
+  const played = res !== null;
+  const aWins = played && res.sA > res.sB;
+  const bWins = played && res.sB > res.sA;
+  return `
+    <div class="match-card ${played?'has-scores':''}">
+      <div class="match-meta">
+        <span>${poolLabel} · ${m.a} vs ${m.b.split(' ')[0]}…</span>
+        ${played?'<span class="done-tag">Done</span>':''}
+      </div>
+      <div class="match-team">
+        <span class="team-name-cell ${played?(aWins?'winner':''):''}">${m.a||'TBD'}</span>
+        ${played
+          ? `<span class="score-num ${aWins?'win':'lose'}">${m.sA}</span>`
+          : `<input class="score-input" type="number" min="0" max="99" placeholder="–" value="${m.sA}"
+              data-matchtype="pool" data-poolmatch="${m.id}" data-side="A" data-catid="${catId}" style="--accent-local:${accent}">`}
+      </div>
+      <div class="match-team">
+        <span class="team-name-cell ${played?(bWins?'winner':''):''}">${m.b||'TBD'}</span>
+        ${played
+          ? `<span class="score-num ${bWins?'win':'lose'}">${m.sB}</span>`
+          : `<input class="score-input" type="number" min="0" max="99" placeholder="–" value="${m.sB}"
+              data-matchtype="pool" data-poolmatch="${m.id}" data-side="B" data-catid="${catId}" style="--accent-local:${accent}">`}
+      </div>
+      <div class="winner-bar ${played?'show':''}" style="background:${played?accent:'transparent'}"></div>
+    </div>`;
+}
+
+function renderFinalMatch(m, catId, accent) {
+  const res = matchResult(m);
+  const played = res !== null;
+  const aWins = played && res.sA > res.sB;
+  const bWins = played && res.sB > res.sA;
+  const nameA = m.a || null;
+  const nameB = m.b || null;
+  const isGold = m.id === 'final';
+  return `
+    <div class="match-card finals-card ${played?'has-scores':''}">
+      <div class="match-meta">
+        <span style="color:${isGold?'var(--gold)':'var(--text-muted)'}">${m.label}</span>
+        ${played?'<span class="done-tag">Done</span>':''}
+      </div>
+      <div class="match-team">
+        <span class="team-name-cell ${!nameA?'tbd':played?(aWins?'winner':''):''}">${nameA||'TBD — pending pool results'}</span>
+        ${played
+          ? `<span class="score-num ${aWins?'win':'lose'}">${m.sA}</span>`
+          : `<input class="score-input" type="number" min="0" max="99" placeholder="–" value="${m.sA||''}"
+              data-matchtype="final" data-finalid="${m.id}" data-side="A" data-catid="${catId}"
+              ${!nameA||!nameB?'disabled':''} style="--accent-local:${isGold?'var(--gold)':accent}">`}
+      </div>
+      <div class="match-team">
+        <span class="team-name-cell ${!nameB?'tbd':played?(bWins?'winner':''):''}">${nameB||'TBD — pending pool results'}</span>
+        ${played
+          ? `<span class="score-num ${bWins?'win':'lose'}">${m.sB}</span>`
+          : `<input class="score-input" type="number" min="0" max="99" placeholder="–" value="${m.sB||''}"
+              data-matchtype="final" data-finalid="${m.id}" data-side="B" data-catid="${catId}"
+              ${!nameA||!nameB?'disabled':''} style="--accent-local:${isGold?'var(--gold)':accent}">`}
+      </div>
+      <div class="winner-bar ${played?'show':''}" style="background:${played?(isGold?'var(--gold)':accent):'transparent'}"></div>
+    </div>`;
+}
+
+function renderTeamEditor(d, catId, accent) {
+  const teams = (d && d.teams) ? d.teams : [];
+  const count = teams.filter(t=>t&&t!=='TBD').length;
+  return `
+    <div class="team-editor-panel">
+      <div class="section-label">Team Names &amp; Draw Setup</div>
+      <div class="team-count-row">
+        <span class="team-count-label">Number of teams:</span>
+        <input class="team-count-input" type="number" min="2" max="16" value="${Math.max(count,2)}" id="team-count-inp">
+        <button class="btn-rebuild" id="btn-rebuild-draw">↺ Rebuild Draw</button>
+      </div>
+      <div class="team-inputs-grid" id="team-inputs-grid">
+        ${renderTeamInputs(teams, count, catId)}
+      </div>
+      <div class="danger-zone">
+        <button class="btn-danger" id="reset-scores">Reset Scores Only</button>
+        <button class="btn-danger" id="reset-cat">Reset Entire Category</button>
+      </div>
+    </div>`;
+}
+
+function renderTeamInputs(teams, count, catId) {
+  const n = Math.max(count, 2);
+  return Array.from({length: n}, (_, i) => {
+    const val = (teams[i] && teams[i] !== 'TBD') ? teams[i] : '';
+    return `
+      <div class="team-row">
+        <span class="team-idx">${i+1}</span>
+        <input class="team-input team-name-input" type="text" value="${val}" placeholder="Team ${i+1}"
+          data-teamidx="${i}" data-catid="${catId}">
+      </div>`;
+  }).join('');
+}
+
 // ── ATTACH ────────────────────────────────────────────────────────────────────
 function attach() {
-  document.querySelectorAll('[data-goto]').forEach(el => {
-    el.addEventListener('click', () => { state.catId = el.dataset.goto; state.view = 'bracket'; render(); });
-  });
-
+  document.querySelectorAll('[data-goto]').forEach(el =>
+    el.addEventListener('click', () => { state.catId=el.dataset.goto; state.view='bracket'; render(); })
+  );
   const back = document.getElementById('back-btn');
-  if (back) back.addEventListener('click', () => { state.view = 'home'; render(); });
+  if (back) back.addEventListener('click', () => { state.view='home'; render(); });
 
-  // Import panel buttons
-  const btnImport  = document.getElementById('btn-import');
-  const btnRefresh = document.getElementById('btn-refresh');
-  const btnReset   = document.getElementById('btn-reset-teams');
-  if (btnImport)  btnImport.addEventListener('click',  doImport);
-  if (btnRefresh) btnRefresh.addEventListener('click', doImport);
-  if (btnReset)   btnReset.addEventListener('click',   doResetTeams);
+  // Import buttons
+  const bi=document.getElementById('btn-import'), br=document.getElementById('btn-refresh'), brt=document.getElementById('btn-reset-teams');
+  if(bi) bi.addEventListener('click', doImport);
+  if(br) br.addEventListener('click', doImport);
+  if(brt) brt.addEventListener('click', doResetTeams);
 
-  // Score inputs
-  document.querySelectorAll('.score-input').forEach(inp => {
+  // Pool match score inputs
+  document.querySelectorAll('.score-input[data-matchtype="pool"]').forEach(inp => {
     inp.addEventListener('change', async () => {
-      const catId = inp.dataset.catid, mid = parseInt(inp.dataset.mid), side = inp.dataset.side;
-      const bracket = state.brackets[catId], match = bracket.matches[mid];
-      if (side === 'A') match.sA = inp.value.trim(); else match.sB = inp.value.trim();
-      const res = getResult(bracket, mid);
-      if (res) { match.status = 'done'; advance(bracket, mid, res); }
-      await saveBracket(catId);
-      toast('Score saved ✓');
-      render();
+      const catId=inp.dataset.catid, pmid=inp.dataset.poolmatch, side=inp.dataset.side;
+      const d=state.catData[catId];
+      let match=null;
+      d.pools.forEach(p => { const m=p.matches.find(m=>m.id===pmid); if(m) match=m; });
+      if(!match) return;
+      if(side==='A') match.sA=inp.value.trim(); else match.sB=inp.value.trim();
+      if(matchResult(match)) match.status='done';
+      seedFinals(d); seedFinal(d);
+      await saveCat(catId); toast('Score saved ✓'); render();
     });
   });
 
-  // Manual team name edits
-  document.querySelectorAll('.team-name-input').forEach(inp => {
-    inp.addEventListener('blur', async () => {
-      const catId = inp.dataset.catid, idx = parseInt(inp.dataset.teamidx);
-      state.brackets[catId].teams[idx] = inp.value.trim() || 'TBD';
-      await saveBracket(catId);
-      toast('Team saved ✓');
+  // Final match score inputs
+  document.querySelectorAll('.score-input[data-matchtype="final"]').forEach(inp => {
+    inp.addEventListener('change', async () => {
+      const catId=inp.dataset.catid, fid=inp.dataset.finalid, side=inp.dataset.side;
+      const d=state.catData[catId];
+      const m=d.finals[fid]; if(!m) return;
+      if(side==='A') m.sA=inp.value.trim(); else m.sB=inp.value.trim();
+      if(matchResult(m)) m.status='done';
+      if(fid==='sf1'||fid==='sf2') seedFinal(d);
+      await saveCat(catId); toast('Score saved ✓'); render();
     });
   });
 
-  // Per-category reset buttons
-  const resetScores = document.getElementById('reset-scores');
-  if (resetScores) resetScores.addEventListener('click', async () => {
-    if (!confirm('Reset all scores for this category? Team names will be kept.')) return;
-    const catId = state.catId;
-    const teams = state.brackets[catId].teams.slice();
-    state.brackets[catId] = defaultBracket();
-    state.brackets[catId].teams = teams;
-    await saveBracket(catId);
-    toast('Scores reset'); render();
+  // Team count change → update inputs only (not full rebuild)
+  const countInp = document.getElementById('team-count-inp');
+  if (countInp) {
+    countInp.addEventListener('change', () => {
+      const catId=state.catId, d=state.catData[catId];
+      const n=Math.min(16,Math.max(2,parseInt(countInp.value)||2));
+      countInp.value=n;
+      const grid=document.getElementById('team-inputs-grid');
+      if(grid) grid.innerHTML=renderTeamInputs(d.teams||[], n, catId);
+      reattachTeamInputs();
+    });
+  }
+
+  // Rebuild draw button
+  const rebuildBtn = document.getElementById('btn-rebuild-draw');
+  if (rebuildBtn) rebuildBtn.addEventListener('click', async () => {
+    const catId=state.catId, d=state.catData[catId];
+    const n=Math.min(16,Math.max(2,parseInt(document.getElementById('team-count-inp')?.value)||2));
+    // Collect current team names from inputs
+    const names=[];
+    document.querySelectorAll('.team-name-input').forEach((inp,i) => {
+      if(i<n) names.push(inp.value.trim()||`Team ${i+1}`);
+    });
+    const newCat=buildCategory(names);
+    if(d.pools) restoreScores(newCat, d);
+    state.catData[catId]=newCat;
+    await saveCat(catId); toast('Draw rebuilt ✓'); render();
   });
 
-  const resetAll = document.getElementById('reset-all');
-  if (resetAll) resetAll.addEventListener('click', async () => {
-    if (!confirm('Reset ALL scores AND team names for this category? This cannot be undone.')) return;
-    state.brackets[state.catId] = defaultBracket();
-    await saveBracket(state.catId);
-    toast('Category fully reset'); render();
+  reattachTeamInputs();
+
+  // Reset buttons
+  const resetScores=document.getElementById('reset-scores');
+  if(resetScores) resetScores.addEventListener('click', async () => {
+    if(!confirm('Reset all scores for this category? Team names and draw will be kept.')) return;
+    const d=state.catData[state.catId];
+    d.pools.forEach(p=>p.matches.forEach(m=>{m.sA='';m.sB='';m.status='pending';}));
+    d.finals={sf1:{...d.finals.sf1,sA:'',sB:'',status:'pending'},sf2:{...d.finals.sf2,sA:'',sB:'',status:'pending'},final:{...d.finals.final,sA:'',sB:'',status:'pending'}};
+    await saveCat(state.catId); toast('Scores reset'); render();
+  });
+
+  const resetCat=document.getElementById('reset-cat');
+  if(resetCat) resetCat.addEventListener('click', async () => {
+    if(!confirm('Completely reset this category? All teams, draw, and scores will be cleared.')) return;
+    state.catData[state.catId]={teams:[],pools:[],finals:{sf1:null,sf2:null,final:null}};
+    await saveCat(state.catId); toast('Category reset'); render();
   });
 }
 
-render();
-init();
+function reattachTeamInputs() {
+  document.querySelectorAll('.team-name-input').forEach(inp => {
+    inp.addEventListener('blur', async () => {
+      const catId=inp.dataset.catid, idx=parseInt(inp.dataset.teamidx);
+      const val=inp.value.trim()||'TBD';
+      if(!state.catData[catId].teams) state.catData[catId].teams=[];
+      state.catData[catId].teams[idx]=val;
+      await saveCat(catId); toast('Saved ✓');
+    });
+  });
+}
+
+render(); init();
 </script>
 </body>
 </html>

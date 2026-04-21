@@ -6,12 +6,7 @@
 <title>DBay Drift · Pickleball Comp 2026</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;500;600;700&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --gold:#F5C842;--neon-green:#39FF6A;--neon-pink:#FF3CAC;--neon-blue:#3CEFFF;
-    --bg:#0a0a0f;--bg2:#111118;--bg3:#1a1a24;
-    --border:rgba(255,255,255,0.08);--border-bright:rgba(255,255,255,0.18);
-    --text:#f0f0f0;--text-muted:rgba(240,240,240,0.5);--text-dim:rgba(240,240,240,0.28);
-  }
+  :root{--gold:#F5C842;--neon-green:#39FF6A;--neon-pink:#FF3CAC;--bg:#0a0a0f;--bg2:#111118;--bg3:#1a1a24;--border:rgba(255,255,255,0.08);--border-bright:rgba(255,255,255,0.18);--text:#f0f0f0;--text-muted:rgba(240,240,240,0.5);--text-dim:rgba(240,240,240,0.28);}
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:'Barlow',sans-serif;}
   body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px);pointer-events:none;z-index:9999;}
@@ -43,7 +38,7 @@
   .tab:hover:not(.active){color:var(--text-muted);}
 
   /* HOME GRID */
-  .cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin-bottom:32px;}
+  .cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:10px;margin-bottom:32px;}
   .cat-card{background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:16px 14px;cursor:pointer;transition:border-color 0.2s,transform 0.15s;position:relative;overflow:hidden;}
   .cat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent);opacity:0.7;}
   .cat-card:hover{border-color:var(--accent);transform:translateY(-2px);}
@@ -52,8 +47,10 @@
   .cat-desc{font-size:11px;color:var(--text-muted);}
   .cat-progress{margin-top:10px;height:2px;background:var(--border);border-radius:1px;overflow:hidden;}
   .cat-progress-bar{height:100%;border-radius:1px;transition:width 0.4s ease;}
+  .cat-teams-label{font-size:11px;color:var(--text-dim);font-family:'Barlow Condensed',sans-serif;margin-top:6px;}
+  .cat-teams-label.has{color:var(--gold);}
 
-  /* BACK BTN */
+  /* BACK */
   .back-btn{display:inline-flex;align-items:center;gap:8px;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);cursor:pointer;background:none;border:none;padding:0;margin-bottom:24px;transition:color 0.15s;}
   .back-btn:hover{color:var(--gold);}
 
@@ -63,43 +60,40 @@
   .bracket-title{font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:0.04em;color:var(--text);line-height:1;margin-bottom:4px;}
   .bracket-meta-row{font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);}
 
-  /* LEADERBOARD */
-  .leaderboard{background:var(--bg2);border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-bottom:28px;}
-  .lb-head{display:grid;grid-template-columns:36px 1fr 40px 40px 40px 48px 56px;padding:8px 14px;background:rgba(255,255,255,0.03);border-bottom:1px solid var(--border);}
-  .lb-hc{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);text-align:center;}
-  .lb-hc:nth-child(2){text-align:left;}
-  .lb-row{display:grid;grid-template-columns:36px 1fr 40px 40px 40px 48px 56px;padding:10px 14px;border-bottom:1px solid var(--border);align-items:center;}
-  .lb-row:last-child{border-bottom:none;}
-  .lb-row:hover{background:rgba(255,255,255,0.02);}
-  .lb-row.rank-1{background:rgba(245,200,66,0.04);}
-  .lb-rank{font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--text-dim);text-align:center;}
-  .lb-row.rank-1 .lb-rank{color:var(--gold);}
-  .lb-row.rank-2 .lb-rank{color:#bbb;}
-  .lb-row.rank-3 .lb-rank{color:#a07840;}
-  .lb-name{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:600;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-  .lb-cell{font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--text-muted);text-align:center;}
-  .lb-pts{font-family:'Bebas Neue',sans-serif;font-size:18px;text-align:center;}
-  .lb-pts.has-pts{color:var(--neon-green);}
-  .lb-pts.no-pts{color:var(--text-dim);}
-  .lb-diff-pos{color:var(--neon-green);}
-  .lb-diff-neg{color:rgba(255,80,80,0.7);}
-  .lb-empty{padding:28px;text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:13px;color:var(--text-dim);letter-spacing:0.1em;}
+  /* POOL SECTION */
+  .pool-section{margin-bottom:32px;}
+  .pool-header{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+  .pool-label{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:0.05em;}
+  .pool-badge{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;padding:3px 9px;border-radius:2px;background:rgba(255,255,255,0.05);color:var(--text-muted);border:1px solid var(--border);}
 
-  /* ROUNDS */
-  .rounds-wrap{display:flex;gap:0;overflow-x:auto;padding-bottom:16px;}
-  .round-col{flex:0 0 220px;}
-  .round-gap{flex:0 0 20px;}
-  .round-spacer{flex:0 0 1px;background:var(--border);margin:36px 0;align-self:stretch;}
-  .round-head{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);padding:0 0 10px 0;border-bottom:1px solid var(--border);margin-bottom:14px;}
-  .match-card{background:var(--bg2);border:1px solid var(--border);border-radius:4px;margin-bottom:12px;overflow:hidden;}
+  /* STANDINGS */
+  .standings{background:var(--bg2);border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-bottom:16px;}
+  .standings-head{display:grid;grid-template-columns:28px 1fr 36px 36px 36px 44px 52px;padding:7px 12px;background:rgba(255,255,255,0.03);border-bottom:1px solid var(--border);}
+  .sh{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);text-align:center;}
+  .sh:nth-child(2){text-align:left;}
+  .standings-row{display:grid;grid-template-columns:28px 1fr 36px 36px 36px 44px 52px;padding:9px 12px;border-bottom:1px solid var(--border);align-items:center;}
+  .standings-row:last-child{border-bottom:none;}
+  .standings-row.advances{background:rgba(57,255,106,0.04);}
+  .sr-rank{font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--text-dim);text-align:center;}
+  .sr-name{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:500;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:flex;align-items:center;gap:6px;}
+  .sr-name.tbd{color:var(--text-dim);font-style:italic;font-size:11px;}
+  .sr-cell{font-family:'Bebas Neue',sans-serif;font-size:15px;color:var(--text-muted);text-align:center;}
+  .sr-pts{font-family:'Bebas Neue',sans-serif;font-size:17px;text-align:center;color:var(--text-dim);}
+  .sr-pts.has-pts{color:var(--neon-green);}
+  .advances-tag{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--neon-green);background:rgba(57,255,106,0.1);border:1px solid rgba(57,255,106,0.2);padding:1px 5px;border-radius:2px;white-space:nowrap;}
+
+  /* MATCH CARDS */
+  .matches-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;margin-bottom:16px;}
+  .match-card{background:var(--bg2);border:1px solid var(--border);border-radius:4px;overflow:hidden;}
   .match-card.has-scores{border-color:rgba(255,255,255,0.1);}
-  .match-meta{display:flex;align-items:center;justify-content:space-between;padding:5px 10px;background:rgba(255,255,255,0.03);border-bottom:1px solid var(--border);font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-dim);}
+  .match-card.finals-card{border-color:rgba(245,200,66,0.2);}
+  .match-meta{display:flex;align-items:center;justify-content:space-between;padding:5px 10px;background:rgba(255,255,255,0.03);border-bottom:1px solid var(--border);font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-dim);}
   .done-tag{background:rgba(57,255,106,0.12);color:var(--neon-green);font-size:9px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;padding:2px 6px;border-radius:2px;}
   .match-team{display:flex;align-items:center;justify-content:space-between;padding:9px 10px 9px 12px;border-bottom:1px solid var(--border);gap:8px;}
   .match-team:last-of-type{border-bottom:none;}
-  .team-name{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:500;color:var(--text-muted);flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-  .team-name.winner{color:var(--text);font-weight:600;}
-  .team-name.tbd{color:var(--text-dim);font-style:italic;font-size:11px;}
+  .team-name-cell{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:500;color:var(--text-muted);flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .team-name-cell.winner{color:var(--text);font-weight:600;}
+  .team-name-cell.tbd{color:var(--text-dim);font-style:italic;font-size:11px;}
   .score-num{font-family:'Bebas Neue',sans-serif;font-size:20px;min-width:22px;text-align:center;color:var(--text-dim);}
   .score-num.win{color:var(--neon-green);}
   .score-num.lose{color:rgba(240,240,240,0.2);}
@@ -107,34 +101,24 @@
   .score-input:focus{border-color:var(--accent-local,var(--gold));}
   .winner-bar{height:2px;transform-origin:left;transform:scaleX(0);transition:transform 0.4s ease;}
   .winner-bar.show{transform:scaleX(1);}
-  .score-hint{font-size:12px;color:var(--text-dim);padding:4px 2px;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.06em;margin-top:8px;}
+
+  .finals-note{font-size:12px;color:var(--text-dim);font-family:'Barlow Condensed',sans-serif;letter-spacing:0.06em;margin-bottom:14px;padding:8px 12px;background:rgba(245,200,66,0.04);border:1px solid rgba(245,200,66,0.1);border-radius:3px;}
+  .score-hint{font-size:12px;color:var(--text-dim);padding:4px 2px;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.06em;margin-top:4px;}
+  .empty-state{padding:40px 20px;text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:14px;color:var(--text-dim);letter-spacing:0.1em;}
 
   .loading{display:flex;align-items:center;justify-content:center;padding:80px;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);gap:10px;}
   .spin{width:16px;height:16px;border:2px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin 0.8s linear infinite;}
   @keyframes spin{to{transform:rotate(360deg);}}
   #toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--bg3);border:1px solid var(--border-bright);color:var(--text);font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:0.08em;padding:10px 20px;border-radius:4px;transition:transform 0.3s ease;z-index:1000;white-space:nowrap;}
   #toast.show{transform:translateX(-50%) translateY(0);}
-
-  @media(max-width:600px){
-    .cat-grid{grid-template-columns:1fr 1fr;}
-    .container{padding:0 12px 40px;}
-    .lb-head,.lb-row{grid-template-columns:30px 1fr 36px 36px 36px 42px 48px;padding:8px 10px;}
-  }
+  @media(max-width:600px){.cat-grid{grid-template-columns:1fr 1fr;}.container{padding:0 12px 40px;}.standings-head,.standings-row{grid-template-columns:24px 1fr 30px 30px 30px 38px 44px;padding:6px 8px;}}
 </style>
 </head>
 <body>
-
 <header class="site-header">
-  <div>
-    <div class="logo-text">DBay Drift</div>
-    <div class="logo-sub">Pickleball 2026</div>
-  </div>
-  <div class="header-right">
-    <div class="live-dot"></div>
-    <div class="live-label">Live</div>
-  </div>
+  <div><div class="logo-text">DBay Drift</div><div class="logo-sub">Pickleball 2026</div></div>
+  <div class="header-right"><div class="live-dot"></div><div class="live-label">Live</div></div>
 </header>
-
 <div id="root"></div>
 <div id="toast"></div>
 
@@ -151,7 +135,6 @@ const firebaseConfig = {
   messagingSenderId: "488263250252",
   appId: "1:488263250252:web:f661c24a591d85b4505fe9"
 };
-
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
@@ -162,115 +145,109 @@ const CATEGORIES = [
   { id:'womens-35-plus',  name:"Women's 3.5+",         sub:"High Intermediate",  type:"WOMEN",  accent:'#FF3CAC' },
   { id:'mixed-35-below',  name:"Mixed 3.5 & Below",    sub:"Low Intermediate",   type:"MIXED",  accent:'#39FF6A' },
   { id:'mixed-35-plus',   name:"Mixed 3.5+",           sub:"High Intermediate",  type:"MIXED",  accent:'#39FF6A' },
-  { id:'all-beginners',    name:"All-In Beginners",      sub:"Open / No rating",   type:"ALL-IN", accent:'#F5C842' },
-  { id:'all-advanced',     name:"All-In Advanced",       sub:"4.0+ rating",        type:"ALL-IN", accent:'#F5C842' },
-  { id:'seniors-50plus',   name:"50+ Seniors",           sub:"No rating required", type:"50+",    accent:'#C084FC' },
-  { id:'juniors',          name:"Junior Scramble",       sub:"Youth division",     type:"JUNIOR", accent:'#FB923C' },
+  { id:'all-beginners',   name:"All-In Beginners",      sub:"Open / No rating",   type:"ALL-IN", accent:'#F5C842' },
+  { id:'all-advanced',    name:"All-In Advanced",       sub:"4.0+ rating",        type:"ALL-IN", accent:'#F5C842' },
+  { id:'seniors-50plus',  name:"50+ Seniors",           sub:"No rating required", type:"50+",    accent:'#C084FC' },
+  { id:'juniors',         name:"Junior Scramble",       sub:"Youth division",     type:"JUNIOR", accent:'#FB923C' },
 ];
 
-function defaultBracket() {
-  return {
-    teams: ['TBD','TBD','TBD','TBD','TBD','TBD','TBD','TBD'],
-    matches: [
-      { id:0, round:'QF', a:0, b:7, sA:'', sB:'', status:'pending' },
-      { id:1, round:'QF', a:3, b:4, sA:'', sB:'', status:'pending' },
-      { id:2, round:'QF', a:2, b:5, sA:'', sB:'', status:'pending' },
-      { id:3, round:'QF', a:1, b:6, sA:'', sB:'', status:'pending' },
-      { id:4, round:'SF', a:null, b:null, sA:'', sB:'', status:'pending' },
-      { id:5, round:'SF', a:null, b:null, sA:'', sB:'', status:'pending' },
-      { id:6, round:'F',  a:null, b:null, sA:'', sB:'', status:'pending' },
-    ]
-  };
+function fixCatData(d) {
+  if (!d) return null;
+  if (d.pools && !Array.isArray(d.pools)) d.pools = Object.values(d.pools);
+  if (d.pools) d.pools = d.pools.map(pool => {
+    if (pool.matches && !Array.isArray(pool.matches)) pool.matches = Object.values(pool.matches);
+    if (pool.teamNames && !Array.isArray(pool.teamNames)) pool.teamNames = Object.values(pool.teamNames);
+    return pool;
+  });
+  if (d.teams && !Array.isArray(d.teams)) d.teams = Object.values(d.teams);
+  return d;
 }
 
-function fixBracket(b) {
-  if (!b) return defaultBracket();
-  if (b.matches && !Array.isArray(b.matches)) b.matches = Object.values(b.matches);
-  if (!b.teams) b.teams = ['TBD','TBD','TBD','TBD','TBD','TBD','TBD','TBD'];
-  return b;
+function matchResult(m) {
+  if (!m || m.sA===''||m.sB===''||m.sA===null||m.sB===null) return null;
+  const sA=parseInt(m.sA),sB=parseInt(m.sB);
+  if(isNaN(sA)||isNaN(sB)) return null;
+  return {sA,sB};
 }
 
-let state = { view:'home', catId:null, tab:'leaderboard', brackets:{}, loading:true };
+function poolStandings(pool) {
+  const stats={};
+  pool.teamNames.forEach(name=>{stats[name]={name,w:0,d:0,l:0,pf:0,pa:0,pts:0,played:0};});
+  pool.matches.forEach(m=>{
+    const res=matchResult(m); if(!res) return;
+    if(!stats[m.a]||!stats[m.b]) return;
+    stats[m.a].played++;stats[m.b].played++;
+    stats[m.a].pf+=res.sA;stats[m.a].pa+=res.sB;
+    stats[m.b].pf+=res.sB;stats[m.b].pa+=res.sA;
+    if(res.sA>res.sB){stats[m.a].w++;stats[m.a].pts+=3;stats[m.b].l++;}
+    else if(res.sB>res.sA){stats[m.b].w++;stats[m.b].pts+=3;stats[m.a].l++;}
+    else{stats[m.a].d++;stats[m.a].pts+=1;stats[m.b].d++;stats[m.b].pts+=1;}
+  });
+  return Object.values(stats).sort((a,b)=>b.pts-a.pts||(b.pf-b.pa)-(a.pf-a.pa)||b.pf-a.pf);
+}
+
+function seedFinals(d) {
+  if(!d.pools||!d.pools.length) return;
+  const np=d.pools.length;
+  const poolTops=d.pools.map(p=>poolStandings(p));
+  let sf1A=null,sf1B=null,sf2A=null,sf2B=null;
+  if(np===1){
+    const st=poolTops[0];
+    sf1A=st[0]?.name||null;sf1B=st[3]?.name||null;
+    sf2A=st[1]?.name||null;sf2B=st[2]?.name||null;
+  } else if(np===2){
+    sf1A=poolTops[0][0]?.name||null;sf1B=poolTops[1][1]?.name||null;
+    sf2A=poolTops[1][0]?.name||null;sf2B=poolTops[0][1]?.name||null;
+  } else {
+    const winners=poolTops.map(st=>st[0]?.name||null);
+    const runnerUps=poolTops.map(st=>st[1]).filter(Boolean).sort((a,b)=>b.pts-a.pts||(b.pf-b.pa)-(a.pf-a.pa)||b.pf-a.pf);
+    const semis=[winners[0],winners[1],winners[2]||runnerUps[0]?.name,winners[3]||runnerUps[1]?.name].filter(Boolean);
+    sf1A=semis[0]||null;sf1B=semis[3]||null;
+    sf2A=semis[1]||null;sf2B=semis[2]||null;
+  }
+  if(d.finals.sf1) { d.finals.sf1.a=sf1A; d.finals.sf1.b=sf1B; }
+  if(d.finals.sf2) { d.finals.sf2.a=sf2A; d.finals.sf2.b=sf2B; }
+}
+
+function seedFinal(d) {
+  const sf1res=matchResult(d.finals.sf1),sf2res=matchResult(d.finals.sf2);
+  const sf1win=sf1res?(sf1res.sA>sf1res.sB?d.finals.sf1.a:d.finals.sf1.b):null;
+  const sf2win=sf2res?(sf2res.sA>sf2res.sB?d.finals.sf2.a:d.finals.sf2.b):null;
+  if(d.finals.final){d.finals.final.a=sf1win;d.finals.final.b=sf2win;}
+}
+
+let state={view:'home',catId:null,tab:'standings',catData:{},loading:true};
 
 async function init() {
-  const snap = await get(ref(db, 'brackets'));
-  const existing = snap.exists() ? snap.val() : {};
-  for (const cat of CATEGORIES) {
-    state.brackets[cat.id] = fixBracket(existing[cat.id]);
-  }
+  const snap=await get(ref(db,'cats'));
+  const existing=snap.exists()?snap.val():{};
+  for(const cat of CATEGORIES) state.catData[cat.id]=fixCatData(existing[cat.id])||null;
 
-  // Real-time: update UI instantly when any score changes
-  onValue(ref(db, 'brackets'), snap => {
-    if (!snap.exists()) return;
-    const data = snap.val();
-    for (const catId of Object.keys(data)) {
-      state.brackets[catId] = fixBracket(data[catId]);
-    }
-    if (!state.loading) render();
+  onValue(ref(db,'cats'),snap=>{
+    if(!snap.exists()) return;
+    const data=snap.val();
+    for(const catId of Object.keys(data)) state.catData[catId]=fixCatData(data[catId]);
+    if(!state.loading) render();
   });
-
-  state.loading = false;
-  render();
+  state.loading=false; render();
 }
 
-async function saveBracket(catId) {
-  await set(ref(db, 'brackets/' + catId), state.brackets[catId]);
-}
+async function saveCat(catId){await set(ref(db,'cats/'+catId),state.catData[catId]);}
 
-function toast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg; t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2200);
-}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
 
-function getResult(bracket, mid) {
-  const m = bracket.matches[mid];
-  if (!m || m.sA === '' || m.sB === '') return null;
-  const sa = parseInt(m.sA), sb = parseInt(m.sB);
-  if (isNaN(sa) || isNaN(sb)) return null;
-  return { aWins: sa > sb, sa, sb };
+function catProgress(id) {
+  const d=state.catData[id]; if(!d||!d.pools||!d.pools.length) return 0;
+  const total=d.pools.reduce((s,p)=>s+(p.matches||[]).length,0);
+  const played=d.pools.reduce((s,p)=>s+(p.matches||[]).filter(m=>matchResult(m)).length,0);
+  return total>0?Math.round((played/total)*100):0;
 }
-
-function teamName(bracket, slot) {
-  if (slot === null || slot === undefined) return null;
-  return bracket.teams[slot] || 'TBD';
-}
-
-function advance(bracket, mid, res) {
-  const map = { 0:{t:4,s:'a'}, 1:{t:4,s:'b'}, 2:{t:5,s:'a'}, 3:{t:5,s:'b'}, 4:{t:6,s:'a'}, 5:{t:6,s:'b'} };
-  const adv = map[mid]; if (!adv) return;
-  const src = bracket.matches[mid];
-  bracket.matches[adv.t][adv.s] = res.aWins ? src.a : src.b;
-}
-
-function catProgress(catId) {
-  const b = state.brackets[catId];
-  const played = b.matches.filter(m => getResult(b, m.id)).length;
-  return Math.round((played / 7) * 100);
-}
-
-function computeLeaderboard(bracket) {
-  const stats = {};
-  for (let i = 0; i < 8; i++) {
-    stats[i] = { slot:i, name:bracket.teams[i]||'TBD', w:0, l:0, pf:0, pa:0, pts:0, played:0 };
-  }
-  for (const m of bracket.matches) {
-    const res = getResult(bracket, m.id);
-    if (!res || m.a === null || m.b === null) continue;
-    if (!(m.a in stats) || !(m.b in stats)) continue;
-    stats[m.a].played++; stats[m.b].played++;
-    stats[m.a].pf += res.sa; stats[m.a].pa += res.sb;
-    stats[m.b].pf += res.sb; stats[m.b].pa += res.sa;
-    if (res.aWins) { stats[m.a].w++; stats[m.a].pts += 3; stats[m.b].l++; }
-    else { stats[m.b].w++; stats[m.b].pts += 3; stats[m.a].l++; }
-  }
-  return Object.values(stats).sort((a,b) => b.pts-a.pts || (b.pf-b.pa)-(a.pf-a.pa) || b.pf-a.pf);
-}
+function catTeamCount(id){const d=state.catData[id];return d&&d.teams?d.teams.filter(t=>t&&t!=='TBD').length:0;}
 
 function render() {
-  const root = document.getElementById('root');
-  if (state.loading) { root.innerHTML = `<div class="loading"><div class="spin"></div> Loading scores…</div>`; return; }
-  root.innerHTML = state.view === 'home' ? renderHome() : renderCategory(state.catId);
+  const root=document.getElementById('root');
+  if(state.loading){root.innerHTML=`<div class="loading"><div class="spin"></div> Loading scores…</div>`;return;}
+  root.innerHTML=state.view==='home'?renderHome():renderCat(state.catId);
   attach();
 }
 
@@ -285,112 +262,83 @@ function renderHome() {
     <div class="container">
       <div class="section-label">Select Your Division</div>
       <div class="cat-grid">
-        ${CATEGORIES.map(cat => {
-          const pct = catProgress(cat.id);
+        ${CATEGORIES.map(cat=>{
+          const pct=catProgress(cat.id), tc=catTeamCount(cat.id);
           return `
             <div class="cat-card" data-goto="${cat.id}" style="--accent:${cat.accent}">
               <span class="cat-pill">${cat.type}</span>
               <div class="cat-name">${cat.name}</div>
               <div class="cat-desc">${cat.sub}</div>
-              <div class="cat-progress">
-                <div class="cat-progress-bar" style="width:${pct}%;background:${cat.accent}"></div>
-              </div>
+              <div class="cat-teams-label ${tc>0?'has':''}">${tc>0?`${tc} teams`:'Not set up yet'}</div>
+              <div class="cat-progress"><div class="cat-progress-bar" style="width:${pct}%;background:${cat.accent}"></div></div>
             </div>`;
         }).join('')}
       </div>
     </div>`;
 }
 
-function renderCategory(catId) {
-  const cat = CATEGORIES.find(c => c.id === catId);
-  const bracket = state.brackets[catId];
-  const accent = cat.accent;
-  const tab = state.tab;
+function renderCat(catId) {
+  const cat=CATEGORIES.find(c=>c.id===catId);
+  const d=state.catData[catId];
+  const accent=cat.accent;
+  const hasPools=d&&d.pools&&d.pools.length>0;
 
-  // ── LEADERBOARD ──
-  const lb = computeLeaderboard(bracket);
-  const hasScores = bracket.matches.some(m => getResult(bracket, m.id));
+  if(hasPools){seedFinals(d);seedFinal(d);}
 
-  const lbHtml = `
-    <div class="section-label">Pool Standings</div>
-    <div class="leaderboard">
-      <div class="lb-head">
-        <div class="lb-hc">#</div>
-        <div class="lb-hc" style="text-align:left">Team</div>
-        <div class="lb-hc">P</div>
-        <div class="lb-hc">W</div>
-        <div class="lb-hc">L</div>
-        <div class="lb-hc">+/−</div>
-        <div class="lb-hc">Pts</div>
-      </div>
-      ${!hasScores
-        ? `<div class="lb-empty">No results yet — scores will appear here as matches are played</div>`
-        : lb.map((row, i) => {
-            const diff = row.pf - row.pa;
-            const diffClass = diff > 0 ? 'lb-diff-pos' : diff < 0 ? 'lb-diff-neg' : '';
-            const rankClass = i === 0 ? 'rank-1' : i === 1 ? 'rank-2' : i === 2 ? 'rank-3' : '';
-            const isTbd = row.name === 'TBD';
-            return `
-              <div class="lb-row ${rankClass}">
-                <div class="lb-rank">${i + 1}</div>
-                <div class="lb-name">${isTbd ? `<span style="color:var(--text-dim);font-style:italic;font-size:12px">TBD</span>` : row.name}</div>
-                <div class="lb-cell">${row.played}</div>
-                <div class="lb-cell">${row.w}</div>
-                <div class="lb-cell">${row.l}</div>
-                <div class="lb-cell ${diffClass}">${diff > 0 ? '+' : ''}${diff}</div>
-                <div class="lb-pts ${row.pts > 0 ? 'has-pts' : 'no-pts'}">${row.pts}</div>
-              </div>`;
-          }).join('')
-      }
-    </div>`;
+  const poolLetters=['A','B','C','D'];
 
-  // ── DRAW & SCORES ──
-  function renderMatch(m) {
-    const res = getResult(bracket, m.id);
-    const nA = m.a !== null ? teamName(bracket, m.a) : null;
-    const nB = m.b !== null ? teamName(bracket, m.b) : null;
-    const aW = res ? res.aWins : false, bW = res ? !res.aWins : false;
-    const played = res !== null;
-    const disA = !nA || nA === 'TBD' ? 'disabled' : '';
-    const disB = !nB || nB === 'TBD' ? 'disabled' : '';
-    return `
-      <div class="match-card ${played ? 'has-scores' : ''}">
-        <div class="match-meta">
-          <span>Match ${m.id + 1}</span>
-          ${played ? '<span class="done-tag">Done</span>' : ''}
-        </div>
-        <div class="match-team">
-          <span class="team-name ${!nA ? 'tbd' : played ? (aW ? 'winner' : '') : ''}">${nA || 'TBD'}</span>
-          ${played
-            ? `<span class="score-num ${aW ? 'win' : 'lose'}">${m.sA}</span>`
-            : `<input class="score-input" type="number" min="0" max="99" placeholder="–" value="${m.sA}"
-                data-mid="${m.id}" data-side="A" data-catid="${catId}" ${disA} style="--accent-local:${accent}">`}
-        </div>
-        <div class="match-team">
-          <span class="team-name ${!nB ? 'tbd' : played ? (bW ? 'winner' : '') : ''}">${nB || 'TBD'}</span>
-          ${played
-            ? `<span class="score-num ${bW ? 'win' : 'lose'}">${m.sB}</span>`
-            : `<input class="score-input" type="number" min="0" max="99" placeholder="–" value="${m.sB}"
-                data-mid="${m.id}" data-side="B" data-catid="${catId}" ${disB} style="--accent-local:${accent}">`}
-        </div>
-        <div class="winner-bar ${played ? 'show' : ''}" style="background:${played ? accent : 'transparent'}"></div>
-      </div>`;
+  // Build tab content
+  let tabContent='';
+  if(state.tab==='standings'){
+    if(!hasPools){
+      tabContent=`<div class="empty-state">This division hasn't been set up yet — check back soon.</div>`;
+    } else {
+      tabContent = d.pools.map((pool,pi)=>{
+        const standings=poolStandings(pool);
+        const advCount=d.advancersPerPool||2;
+        return `
+          <div class="pool-section">
+            <div class="pool-header">
+              <div class="pool-label" style="color:${accent}">Pool ${poolLetters[pi]}</div>
+              <div class="pool-badge">${pool.teamNames.length} teams</div>
+            </div>
+            ${renderStandings(standings, advCount)}
+          </div>`;
+      }).join('');
+    }
+  } else if(state.tab==='matches'){
+    if(!hasPools){
+      tabContent=`<div class="empty-state">No matches scheduled yet.</div>`;
+    } else {
+      tabContent = d.pools.map((pool,pi)=>{
+        const played=pool.matches.filter(m=>matchResult(m)).length;
+        return `
+          <div class="pool-section">
+            <div class="pool-header">
+              <div class="pool-label" style="color:${accent}">Pool ${poolLetters[pi]}</div>
+              <div class="pool-badge">${played}/${pool.matches.length} played</div>
+            </div>
+            <div class="matches-grid">
+              ${pool.matches.map(m=>renderMatch(m,catId,accent,`Pool ${poolLetters[pi]}`)).join('')}
+            </div>
+          </div>`;
+      }).join('');
+      tabContent += `<p class="score-hint">Enter scores after your match. Both scores needed to lock the result.</p>`;
+    }
+  } else if(state.tab==='finals'){
+    if(!hasPools||!d.finals){
+      tabContent=`<div class="empty-state">Finals draw not yet available.</div>`;
+    } else {
+      const allPoolsDone=d.pools.every(p=>p.matches.every(m=>matchResult(m)));
+      tabContent=`
+        ${!allPoolsDone?`<div class="finals-note">Pool play is still in progress. Semi-final seedings shown are current projections.</div>`:''}
+        <div class="matches-grid">
+          ${d.finals.sf1?renderFinalMatch(d.finals.sf1,catId,accent):''}
+          ${d.finals.sf2?renderFinalMatch(d.finals.sf2,catId,accent):''}
+          ${d.finals.final?renderFinalMatch(d.finals.final,catId,accent):''}
+        </div>`;
+    }
   }
-
-  const qf = bracket.matches.filter(m => m.round === 'QF');
-  const sf = bracket.matches.filter(m => m.round === 'SF');
-  const fi = bracket.matches.filter(m => m.round === 'F');
-
-  const drawHtml = `
-    <div class="section-label">Draw &amp; Scores</div>
-    <div class="rounds-wrap">
-      <div class="round-col"><div class="round-head">Quarter-finals</div>${qf.map(renderMatch).join('')}</div>
-      <div class="round-gap"></div><div class="round-spacer"></div><div class="round-gap"></div>
-      <div class="round-col"><div class="round-head">Semi-finals</div>${sf.map(renderMatch).join('')}</div>
-      <div class="round-gap"></div><div class="round-spacer"></div><div class="round-gap"></div>
-      <div class="round-col"><div class="round-head">Final</div>${fi.map(renderMatch).join('')}</div>
-    </div>
-    <p class="score-hint">Enter scores after your match. Once both scores are filled in, the result is locked and the leaderboard updates.</p>`;
 
   return `
     <div class="container" style="padding-top:24px;">
@@ -399,46 +347,138 @@ function renderCategory(catId) {
         <div class="bracket-accent" style="background:${accent}"></div>
         <div>
           <div class="bracket-title">${cat.name}</div>
-          <div class="bracket-meta-row" style="color:${accent}">${cat.sub}</div>
+          <div class="bracket-meta-row" style="color:${accent}">${cat.sub}${hasPools?` · ${d.pools.length} pool${d.pools.length>1?'s':''} · Semi-finals · Final`:''}</div>
         </div>
       </div>
       <div class="tab-bar">
-        <button class="tab ${tab === 'leaderboard' ? 'active' : ''}" data-tab="leaderboard">Leaderboard</button>
-        <button class="tab ${tab === 'draw' ? 'active' : ''}" data-tab="draw">Draw &amp; Scores</button>
+        <button class="tab ${state.tab==='standings'?'active':''}" data-tab="standings">Standings</button>
+        <button class="tab ${state.tab==='matches'?'active':''}" data-tab="matches">Matches</button>
+        <button class="tab ${state.tab==='finals'?'active':''}" data-tab="finals">Finals</button>
       </div>
-      ${tab === 'leaderboard' ? lbHtml : drawHtml}
+      ${tabContent}
+    </div>`;
+}
+
+function renderStandings(standings, advCount) {
+  return `
+    <div class="standings">
+      <div class="standings-head">
+        <div class="sh">#</div><div class="sh" style="text-align:left">Team</div>
+        <div class="sh">P</div><div class="sh">W</div><div class="sh">L</div>
+        <div class="sh">+/−</div><div class="sh">Pts</div>
+      </div>
+      ${standings.map((row,i)=>{
+        const diff=row.pf-row.pa, advances=i<advCount;
+        const diffColor=diff>0?'var(--neon-green)':diff<0?'rgba(255,80,80,0.7)':'var(--text-dim)';
+        return `
+          <div class="standings-row ${advances?'advances':''}">
+            <div class="sr-rank">${i+1}</div>
+            <div class="sr-name">${row.name}${advances?'<span class="advances-tag">Advances</span>':''}</div>
+            <div class="sr-cell">${row.played}</div>
+            <div class="sr-cell">${row.w}</div>
+            <div class="sr-cell">${row.l}</div>
+            <div class="sr-cell" style="color:${diffColor}">${diff>0?'+':''}${diff}</div>
+            <div class="sr-pts ${row.pts>0?'has-pts':''}">${row.pts}</div>
+          </div>`;
+      }).join('')}
+    </div>`;
+}
+
+function renderMatch(m, catId, accent, poolLabel) {
+  const res=matchResult(m), played=res!==null;
+  const aWins=played&&res.sA>res.sB, bWins=played&&res.sB>res.sA;
+  return `
+    <div class="match-card ${played?'has-scores':''}">
+      <div class="match-meta">
+        <span>${poolLabel}</span>${played?'<span class="done-tag">Done</span>':''}
+      </div>
+      <div class="match-team">
+        <span class="team-name-cell ${played?(aWins?'winner':''):''}">${m.a||'TBD'}</span>
+        ${played
+          ?`<span class="score-num ${aWins?'win':'lose'}">${m.sA}</span>`
+          :`<input class="score-input" type="number" min="0" max="99" placeholder="–" value="${m.sA}"
+              data-matchtype="pool" data-poolmatch="${m.id}" data-side="A" data-catid="${catId}" style="--accent-local:${accent}">`}
+      </div>
+      <div class="match-team">
+        <span class="team-name-cell ${played?(bWins?'winner':''):''}">${m.b||'TBD'}</span>
+        ${played
+          ?`<span class="score-num ${bWins?'win':'lose'}">${m.sB}</span>`
+          :`<input class="score-input" type="number" min="0" max="99" placeholder="–" value="${m.sB}"
+              data-matchtype="pool" data-poolmatch="${m.id}" data-side="B" data-catid="${catId}" style="--accent-local:${accent}">`}
+      </div>
+      <div class="winner-bar ${played?'show':''}" style="background:${played?accent:'transparent'}"></div>
+    </div>`;
+}
+
+function renderFinalMatch(m, catId, accent) {
+  const res=matchResult(m), played=res!==null;
+  const aWins=played&&res.sA>res.sB, bWins=played&&res.sB>res.sA;
+  const isGold=m.id==='final';
+  return `
+    <div class="match-card finals-card ${played?'has-scores':''}">
+      <div class="match-meta">
+        <span style="color:${isGold?'var(--gold)':'var(--text-muted)'}">${m.label}</span>
+        ${played?'<span class="done-tag">Done</span>':''}
+      </div>
+      <div class="match-team">
+        <span class="team-name-cell ${!m.a?'tbd':played?(aWins?'winner':''):''}">${m.a||'TBD — pending pool results'}</span>
+        ${played
+          ?`<span class="score-num ${aWins?'win':'lose'}">${m.sA}</span>`
+          :`<input class="score-input" type="number" min="0" max="99" placeholder="–" value="${m.sA||''}"
+              data-matchtype="final" data-finalid="${m.id}" data-side="A" data-catid="${catId}"
+              ${!m.a||!m.b?'disabled':''} style="--accent-local:${isGold?'var(--gold)':accent}">`}
+      </div>
+      <div class="match-team">
+        <span class="team-name-cell ${!m.b?'tbd':played?(bWins?'winner':''):''}">${m.b||'TBD — pending pool results'}</span>
+        ${played
+          ?`<span class="score-num ${bWins?'win':'lose'}">${m.sB}</span>`
+          :`<input class="score-input" type="number" min="0" max="99" placeholder="–" value="${m.sB||''}"
+              data-matchtype="final" data-finalid="${m.id}" data-side="B" data-catid="${catId}"
+              ${!m.a||!m.b?'disabled':''} style="--accent-local:${isGold?'var(--gold)':accent}">`}
+      </div>
+      <div class="winner-bar ${played?'show':''}" style="background:${played?(isGold?'var(--gold)':accent):'transparent'}"></div>
     </div>`;
 }
 
 function attach() {
-  document.querySelectorAll('[data-goto]').forEach(el => {
-    el.addEventListener('click', () => { state.catId = el.dataset.goto; state.view = 'bracket'; state.tab = 'leaderboard'; render(); });
+  document.querySelectorAll('[data-goto]').forEach(el=>
+    el.addEventListener('click',()=>{state.catId=el.dataset.goto;state.view='bracket';state.tab='standings';render();})
+  );
+  const back=document.getElementById('back-btn');
+  if(back) back.addEventListener('click',()=>{state.view='home';render();});
+
+  document.querySelectorAll('[data-tab]').forEach(btn=>
+    btn.addEventListener('click',()=>{state.tab=btn.dataset.tab;render();})
+  );
+
+  document.querySelectorAll('.score-input[data-matchtype="pool"]').forEach(inp=>{
+    inp.addEventListener('change',async()=>{
+      const catId=inp.dataset.catid,pmid=inp.dataset.poolmatch,side=inp.dataset.side;
+      const d=state.catData[catId];
+      let match=null;
+      d.pools.forEach(p=>{const m=p.matches.find(m=>m.id===pmid);if(m) match=m;});
+      if(!match) return;
+      if(side==='A') match.sA=inp.value.trim(); else match.sB=inp.value.trim();
+      if(matchResult(match)) match.status='done';
+      seedFinals(d);seedFinal(d);
+      await saveCat(catId);toast('Score saved ✓');render();
+    });
   });
 
-  const back = document.getElementById('back-btn');
-  if (back) back.addEventListener('click', () => { state.view = 'home'; render(); });
-
-  document.querySelectorAll('[data-tab]').forEach(btn => {
-    btn.addEventListener('click', () => { state.tab = btn.dataset.tab; render(); });
-  });
-
-  document.querySelectorAll('.score-input').forEach(inp => {
-    inp.addEventListener('change', async () => {
-      const catId = inp.dataset.catid, mid = parseInt(inp.dataset.mid), side = inp.dataset.side;
-      const bracket = state.brackets[catId];
-      const match = bracket.matches[mid];
-      if (side === 'A') match.sA = inp.value.trim(); else match.sB = inp.value.trim();
-      const res = getResult(bracket, mid);
-      if (res) { match.status = 'done'; advance(bracket, mid, res); }
-      await saveBracket(catId);
-      toast('Score saved ✓');
-      render();
+  document.querySelectorAll('.score-input[data-matchtype="final"]').forEach(inp=>{
+    inp.addEventListener('change',async()=>{
+      const catId=inp.dataset.catid,fid=inp.dataset.finalid,side=inp.dataset.side;
+      const d=state.catData[catId];
+      const m=d.finals[fid];if(!m) return;
+      if(side==='A') m.sA=inp.value.trim(); else m.sB=inp.value.trim();
+      if(matchResult(m)) m.status='done';
+      if(fid==='sf1'||fid==='sf2') seedFinal(d);
+      await saveCat(catId);toast('Score saved ✓');render();
     });
   });
 }
 
-render();
-init();
+render();init();
 </script>
 </body>
 </html>
