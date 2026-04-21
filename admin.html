@@ -42,27 +42,6 @@
   .section-label{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:14px;display:flex;align-items:center;gap:10px;}
   .section-label::after{content:'';flex:1;height:1px;background:var(--border);}
 
-  /* ── IMPORT PANEL ── */
-  .import-panel{background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:20px 24px;margin-bottom:32px;position:relative;overflow:hidden;}
-  .import-panel::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),transparent);}
-  .import-title{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text);margin-bottom:4px;}
-  .import-desc{font-size:12px;color:var(--text-muted);margin-bottom:16px;line-height:1.5;}
-  .import-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
-  .btn-import{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;padding:8px 18px;border-radius:3px;cursor:pointer;transition:all 0.15s;border:none;display:flex;align-items:center;gap:7px;}
-  .btn-import.primary{background:var(--gold);color:#000;}
-  .btn-import.primary:hover{background:#e6b820;}
-  .btn-import.primary:disabled{background:rgba(245,200,66,0.3);color:rgba(0,0,0,0.4);cursor:not-allowed;}
-  .btn-import.secondary{background:transparent;color:var(--text-muted);border:1px solid var(--border-bright);}
-  .btn-import.secondary:hover{color:var(--text);border-color:var(--text-muted);}
-  .btn-import.secondary:disabled{opacity:0.35;cursor:not-allowed;}
-  .btn-import.danger{background:transparent;color:rgba(255,69,69,0.6);border:1px solid rgba(255,69,69,0.2);}
-  .btn-import.danger:hover{color:var(--red);border-color:var(--red);background:rgba(255,69,69,0.05);}
-  .import-status{font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:0.06em;margin-top:12px;padding:8px 12px;border-radius:3px;display:none;}
-  .import-status.success{display:block;background:rgba(57,255,106,0.08);border:1px solid rgba(57,255,106,0.2);color:var(--neon-green);}
-  .import-status.error{display:block;background:rgba(255,69,69,0.08);border:1px solid rgba(255,69,69,0.2);color:var(--red);}
-  .import-status.loading{display:flex;align-items:center;gap:8px;background:rgba(245,200,66,0.06);border:1px solid rgba(245,200,66,0.15);color:var(--gold);}
-  .spin-sm{width:12px;height:12px;border:2px solid rgba(245,200,66,0.3);border-top-color:var(--gold);border-radius:50%;animation:spin 0.7s linear infinite;flex-shrink:0;}
-
   /* ── CATEGORY GRID ── */
   .cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-bottom:40px;}
   .cat-card{background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:18px 16px;cursor:pointer;transition:border-color 0.2s,transform 0.15s,box-shadow 0.2s;position:relative;overflow:hidden;}
@@ -73,11 +52,35 @@
   .cat-num{font-family:'Bebas Neue',sans-serif;font-size:28px;color:rgba(255,255,255,0.06);}
   .cat-name{font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:600;color:var(--text);line-height:1.2;margin-bottom:4px;}
   .cat-desc{font-size:12px;color:var(--text-muted);}
-  .cat-status{margin-top:12px;display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-dim);font-family:'Barlow Condensed',sans-serif;letter-spacing:0.06em;}
+  .cat-team-count{font-family:'Barlow Condensed',sans-serif;font-size:11px;color:var(--text-dim);margin-top:6px;}
+  .cat-team-count.has-teams{color:var(--gold);}
+  .cat-status{margin-top:6px;display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-dim);font-family:'Barlow Condensed',sans-serif;letter-spacing:0.06em;}
   .status-dot{width:5px;height:5px;border-radius:50%;background:var(--text-dim);}
   .status-dot.active{background:var(--neon-green);box-shadow:0 0 6px var(--neon-green);}
-  .cat-team-count{font-family:'Barlow Condensed',sans-serif;font-size:11px;color:var(--text-dim);margin-top:4px;}
-  .cat-team-count.has-teams{color:var(--gold);}
+
+  /* ── IMPORT PANEL ── */
+  .import-panel{background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:22px 24px;margin-bottom:32px;position:relative;overflow:hidden;}
+  .import-panel::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),rgba(245,200,66,0.1));}
+  .import-header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:16px;}
+  .import-title{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text);margin-bottom:3px;}
+  .import-desc{font-size:12px;color:var(--text-muted);line-height:1.6;max-width:560px;}
+  .import-sheet-url{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:0.05em;color:var(--text-dim);margin-top:6px;word-break:break-all;}
+  .import-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+  .btn-import{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;padding:9px 18px;border-radius:3px;cursor:pointer;transition:all 0.15s;border:none;display:inline-flex;align-items:center;gap:7px;white-space:nowrap;}
+  .btn-import.primary{background:var(--gold);color:#111;}
+  .btn-import.primary:hover{background:#e8bb18;}
+  .btn-import.primary:disabled{background:rgba(245,200,66,0.25);color:rgba(0,0,0,0.3);cursor:not-allowed;}
+  .btn-import.secondary{background:transparent;color:var(--text-muted);border:1px solid var(--border-bright);}
+  .btn-import.secondary:hover{color:var(--text);border-color:rgba(255,255,255,0.35);}
+  .btn-import.secondary:disabled{opacity:0.3;cursor:not-allowed;}
+  .btn-import.danger-soft{background:transparent;color:rgba(255,69,69,0.55);border:1px solid rgba(255,69,69,0.18);}
+  .btn-import.danger-soft:hover{color:var(--red);border-color:var(--red);background:rgba(255,69,69,0.05);}
+  .btn-import.danger-soft:disabled{opacity:0.3;cursor:not-allowed;}
+  .import-status{font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:0.06em;margin-top:14px;padding:9px 13px;border-radius:3px;display:none;line-height:1.5;}
+  .import-status.success{display:block;background:rgba(57,255,106,0.07);border:1px solid rgba(57,255,106,0.2);color:var(--neon-green);}
+  .import-status.error{display:block;background:rgba(255,69,69,0.07);border:1px solid rgba(255,69,69,0.2);color:#ff8080;}
+  .import-status.loading{display:flex;align-items:center;gap:9px;background:rgba(245,200,66,0.05);border:1px solid rgba(245,200,66,0.15);color:var(--gold);}
+  .spin-sm{width:13px;height:13px;border:2px solid rgba(245,200,66,0.25);border-top-color:var(--gold);border-radius:50%;animation:spin 0.7s linear infinite;flex-shrink:0;}
 
   /* ── BACK ── */
   .back-btn{display:inline-flex;align-items:center;gap:8px;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);cursor:pointer;background:none;border:none;padding:0;margin-bottom:24px;transition:color 0.15s;}
@@ -129,7 +132,7 @@
   @keyframes spin{to{transform:rotate(360deg);}}
   #toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--bg3);border:1px solid var(--border-bright);color:var(--text);font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:0.08em;padding:10px 20px;border-radius:4px;transition:transform 0.3s ease;z-index:1000;white-space:nowrap;}
   #toast.show{transform:translateX(-50%) translateY(0);}
-  @media(max-width:600px){.cat-grid{grid-template-columns:1fr 1fr;}.container{padding:0 12px 40px;}.import-actions{flex-direction:column;align-items:stretch;}}
+  @media(max-width:640px){.cat-grid{grid-template-columns:1fr 1fr;}.container{padding:0 12px 40px;}.import-actions{flex-direction:column;align-items:stretch;}}
 </style>
 </head>
 <body>
@@ -167,22 +170,20 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
 // ── SHEET CONFIG ──────────────────────────────────────────────────────────────
-const SHEET_ID = '18mTb7Sio15vw3hYgqxBy7DmTHwdDHsYUB54jUtiAHps';
-const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=Event%20List`;
+const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRqh2Xvn6diYE3dKhKpLv8led0QWyfHlWTQYTPn2mr_wnNAzVErLS_jIwaSJwlNrFTzAdTz0BjdiRmB/pub?gid=0&single=true&output=csv';
 
-// Maps sheet column headers → category IDs
-// Order matches the sheet columns left-to-right
+// Column header → category ID mapping (order matches sheet left-to-right)
 const SHEET_COL_MAP = [
-  { header: 'Mens up to 3.5 Low Intermediate',      id: 'mens-3.5-below'   },
-  { header: 'Womens 3.5+ High Intermediate',         id: 'womens-3.5-plus'  },
-  { header: 'Womens up to 3.5 Low Intermediate',     id: 'womens-3.5-below' },
-  { header: 'Mens 3.5+ High Intermediate',           id: 'mens-3.5-plus'    },
-  { header: 'Mixed up to 3.5 Low Intermediate',      id: 'mixed-3.5-below'  },
-  { header: 'Mixed 3.5+ High Intermediate',          id: 'mixed-3.5-plus'   },
-  { header: 'All-in Beginners',                      id: 'all-beginners'    },
-  { header: 'All-in Advanced 4.0 min',               id: 'all-advanced'     },
-  { header: 'All-in 50+ No rating',                  id: 'seniors-50plus'   },
-  { header: 'Junior Scramble',                       id: 'juniors'          },
+  { header: 'Mens up to 3.5 Low Intermediate',    id: 'mens-3.5-below'   },
+  { header: 'Womens 3.5+ High Intermediate',       id: 'womens-3.5-plus'  },
+  { header: 'Womens up to 3.5 Low Intermediate',   id: 'womens-3.5-below' },
+  { header: 'Mens 3.5+ High Intermediate',         id: 'mens-3.5-plus'    },
+  { header: 'Mixed up to 3.5 Low Intermediate',    id: 'mixed-3.5-below'  },
+  { header: 'Mixed 3.5+ High Intermediate',        id: 'mixed-3.5-plus'   },
+  { header: 'All-in Beginners',                    id: 'all-beginners'    },
+  { header: 'All-in Advanced 4.0 min',             id: 'all-advanced'     },
+  { header: 'All-in 50+ No rating',                id: 'seniors-50plus'   },
+  { header: 'Junior Scramble',                     id: 'juniors'          },
 ];
 
 // ── CATEGORIES ────────────────────────────────────────────────────────────────
@@ -199,6 +200,7 @@ const CATEGORIES = [
   { id:'juniors',          name:"Junior Scramble",       sub:"Youth division",     type:"JUNIOR", accent:'#FB923C' },
 ];
 
+// ── BRACKET HELPERS ───────────────────────────────────────────────────────────
 function defaultBracket() {
   return {
     teams: ['TBD','TBD','TBD','TBD','TBD','TBD','TBD','TBD'],
@@ -221,46 +223,70 @@ function fixBracket(b) {
   return b;
 }
 
-// ── SHEET IMPORT ──────────────────────────────────────────────────────────────
+// ── CSV PARSER ────────────────────────────────────────────────────────────────
+function parseCSV(text) {
+  // Split into lines, handle \r\n and \r
+  const lines = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n').split('\n');
+
+  // Parse a single CSV line respecting quoted fields
+  function parseLine(line) {
+    const fields = [];
+    let cur = '', inQuote = false;
+    for (let i = 0; i < line.length; i++) {
+      const ch = line[i];
+      if (ch === '"') {
+        if (inQuote && line[i+1] === '"') { cur += '"'; i++; }
+        else inQuote = !inQuote;
+      } else if (ch === ',' && !inQuote) {
+        fields.push(cur.trim()); cur = '';
+      } else {
+        cur += ch;
+      }
+    }
+    fields.push(cur.trim());
+    return fields;
+  }
+
+  return lines.map(parseLine);
+}
+
 async function fetchSheetTeams() {
-  const res = await fetch(SHEET_URL);
+  const res = await fetch(SHEET_CSV_URL);
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   const text = await res.text();
-  // Strip Google's JSONP wrapper: /*O_o*/\ngoogle.visualization.Query.setResponse({...});
-  const json = JSON.parse(text.replace(/^[^(]*\(/, '').replace(/\);?\s*$/, ''));
+  const rows = parseCSV(text);
 
-  const table = json.table;
-  const cols = table.cols; // column metadata — label is row 1
-  const rows = table.rows; // data rows
+  if (rows.length === 0) throw new Error('Empty spreadsheet');
 
-  // Build a map: catId → [team names]
-  const result = {};
-
-  cols.forEach((col, colIdx) => {
-    const label = (col.label || '').trim();
-    // Find matching category mapping (fuzzy: normalise whitespace)
-    const mapping = SHEET_COL_MAP.find(m =>
-      m.header.replace(/\s+/g,' ').toLowerCase() === label.replace(/\s+/g,' ').toLowerCase()
-    );
-    if (!mapping) return;
-
-    const teams = [];
-    rows.forEach(row => {
-      if (!row.c || !row.c[colIdx]) return;
-      const val = row.c[colIdx].v;
-      if (val && String(val).trim() !== '') {
-        teams.push(String(val).trim());
-      }
-    });
-
-    result[mapping.id] = teams;
+  // Row 0 is headers
+  const headers = rows[0];
+  // Build col index → category id mapping
+  const colMap = {};
+  headers.forEach((h, i) => {
+    const clean = h.replace(/\s+/g,' ').trim().toLowerCase();
+    const match = SHEET_COL_MAP.find(m => m.header.toLowerCase() === clean);
+    if (match) colMap[i] = match.id;
   });
+
+  // Collect teams per category from data rows
+  const result = {};
+  for (let r = 1; r < rows.length; r++) {
+    const row = rows[r];
+    row.forEach((cell, i) => {
+      const catId = colMap[i];
+      if (!catId) return;
+      const val = cell.trim();
+      if (!val) return;
+      if (!result[catId]) result[catId] = [];
+      result[catId].push(val);
+    });
+  }
 
   return result;
 }
 
 // ── STATE ─────────────────────────────────────────────────────────────────────
-let state = { view:'home', catId:null, brackets:{}, loading:true, importing:false };
+let state = { view:'home', catId:null, brackets:{}, loading:true };
 
 async function init() {
   onValue(ref(db, '.info/connected'), snap => {
@@ -295,72 +321,64 @@ async function saveAll() {
   await set(ref(db, 'brackets'), state.brackets);
 }
 
-// ── IMPORT LOGIC ──────────────────────────────────────────────────────────────
-async function doImport(mode) {
-  // mode: 'import' = first time / overwrite teams, 'refresh' = same thing with different messaging
-  setImportStatus('loading', mode === 'refresh' ? 'Refreshing from spreadsheet…' : 'Importing from spreadsheet…');
-  setBtnsDisabled(true);
-
+// ── IMPORT ACTIONS ────────────────────────────────────────────────────────────
+async function doImport() {
+  setStatus('loading', 'Fetching spreadsheet…');
+  setBtns(true);
   try {
     const sheetTeams = await fetchSheetTeams();
-    let totalImported = 0;
-    let categoriesUpdated = 0;
+    let totalTeams = 0, catsUpdated = 0;
 
     for (const cat of CATEGORIES) {
       const teams = sheetTeams[cat.id];
       if (!teams || teams.length === 0) continue;
-
-      // Pad or trim to 8 slots
-      const paddedTeams = [...teams.slice(0, 8)];
-      while (paddedTeams.length < 8) paddedTeams.push('TBD');
-
-      state.brackets[cat.id].teams = paddedTeams;
-      totalImported += teams.slice(0, 8).filter(t => t && t !== 'TBD').length;
-      categoriesUpdated++;
+      const padded = [...teams.slice(0, 8)];
+      while (padded.length < 8) padded.push('TBD');
+      state.brackets[cat.id].teams = padded;
+      totalTeams += teams.slice(0, 8).filter(t => t && t !== 'TBD').length;
+      catsUpdated++;
     }
 
     await saveAll();
-    setImportStatus('success', `✓ Imported ${totalImported} teams across ${categoriesUpdated} categories`);
-    toast('Teams imported from spreadsheet ✓');
+    setStatus('success', `✓ Imported ${totalTeams} teams across ${catsUpdated} categories`);
+    toast('Teams imported ✓');
     render();
   } catch (e) {
     console.error(e);
-    setImportStatus('error', `Failed to load spreadsheet: ${e.message}. Make sure the sheet is publicly shared.`);
+    setStatus('error', `Could not load spreadsheet: ${e.message}`);
   } finally {
-    setBtnsDisabled(false);
+    setBtns(false);
   }
 }
 
 async function doResetTeams() {
-  if (!confirm('Reset ALL team names across ALL categories to TBD? Scores will be kept.')) return;
+  if (!confirm('Reset ALL team names across ALL categories to TBD? Scores will not be affected.')) return;
   for (const cat of CATEGORIES) {
     state.brackets[cat.id].teams = ['TBD','TBD','TBD','TBD','TBD','TBD','TBD','TBD'];
   }
   await saveAll();
-  toast('All team names reset');
-  setImportStatus('', '');
+  toast('All team names cleared');
+  setStatus('', '');
   render();
 }
 
-function setImportStatus(type, msg) {
+function setStatus(type, msg) {
   const el = document.getElementById('import-status');
   if (!el) return;
-  el.className = 'import-status ' + type;
-  if (type === 'loading') {
-    el.innerHTML = `<div class="spin-sm"></div>${msg}`;
-  } else {
-    el.textContent = msg;
-  }
+  el.className = 'import-status' + (type ? ' ' + type : '');
+  el.innerHTML = type === 'loading'
+    ? `<div class="spin-sm"></div><span>${msg}</span>`
+    : msg;
 }
 
-function setBtnsDisabled(disabled) {
-  ['btn-sheet-import','btn-sheet-refresh','btn-sheet-reset'].forEach(id => {
+function setBtns(disabled) {
+  ['btn-import','btn-refresh','btn-reset-teams'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.disabled = disabled;
   });
 }
 
-// ── HELPERS ───────────────────────────────────────────────────────────────────
+// ── UTILS ─────────────────────────────────────────────────────────────────────
 function toast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg; t.classList.add('show');
@@ -417,28 +435,6 @@ function renderHome() {
     </div>
     <div class="container">
 
-      <div class="section-label">Spreadsheet Import</div>
-      <div class="import-panel">
-        <div class="import-title">Google Sheets · Event List</div>
-        <div class="import-desc">
-          Pulls team names directly from the registration spreadsheet and populates all categories at once.
-          Up to 8 teams per category. Re-import anytime to refresh with new registrations.
-          ${totalTeams > 0 ? `<strong style="color:var(--gold)">${totalTeams} teams currently loaded.</strong>` : ''}
-        </div>
-        <div class="import-actions">
-          <button class="btn-import primary" id="btn-sheet-import">
-            ↓ Import Teams from Sheet
-          </button>
-          <button class="btn-import secondary" id="btn-sheet-refresh">
-            ↺ Refresh from Sheet
-          </button>
-          <button class="btn-import danger" id="btn-sheet-reset">
-            ✕ Reset All Team Names
-          </button>
-        </div>
-        <div class="import-status" id="import-status"></div>
-      </div>
-
       <div class="section-label">Categories — ${CATEGORIES.length} Divisions</div>
       <div class="cat-grid">
         ${CATEGORIES.map((cat, i) => {
@@ -461,6 +457,28 @@ function renderHome() {
             </div>`;
         }).join('')}
       </div>
+
+      <div class="section-label">Spreadsheet Import</div>
+      <div class="import-panel">
+        <div class="import-header">
+          <div>
+            <div class="import-title">Google Sheets · Event List</div>
+            <div class="import-desc">
+              Pulls team names from the registration spreadsheet and populates all categories at once.
+              Re-import anytime to pick up new registrations — existing scores are never affected.
+              ${totalTeams > 0 ? `<br><strong style="color:var(--gold)">${totalTeams} teams currently loaded across all categories.</strong>` : ''}
+            </div>
+            <div class="import-sheet-url">Source: Event List · published CSV</div>
+          </div>
+        </div>
+        <div class="import-actions">
+          <button class="btn-import primary" id="btn-import">↓ Import Teams</button>
+          <button class="btn-import secondary" id="btn-refresh">↺ Refresh from Sheet</button>
+          <button class="btn-import danger-soft" id="btn-reset-teams">✕ Reset All Team Names</button>
+        </div>
+        <div class="import-status" id="import-status"></div>
+      </div>
+
     </div>`;
 }
 
@@ -530,9 +548,7 @@ function renderBracket(catId) {
 
       <div class="team-editor">
         <div class="section-label">Team Names
-          <span style="font-size:10px;color:var(--text-dim);font-weight:400;letter-spacing:0.05em;text-transform:none;">
-            — edit manually or use Import on the home screen
-          </span>
+          <span style="font-size:10px;color:var(--text-dim);font-weight:400;letter-spacing:0.04em;text-transform:none;">— edit manually, or use Import on the home screen</span>
         </div>
         <div class="team-grid">
           ${bracket.teams.map((t, i) => `
@@ -551,22 +567,22 @@ function renderBracket(catId) {
     </div>`;
 }
 
-// ── ATTACH EVENTS ─────────────────────────────────────────────────────────────
+// ── ATTACH ────────────────────────────────────────────────────────────────────
 function attach() {
-  // Home nav
   document.querySelectorAll('[data-goto]').forEach(el => {
     el.addEventListener('click', () => { state.catId = el.dataset.goto; state.view = 'bracket'; render(); });
   });
+
   const back = document.getElementById('back-btn');
   if (back) back.addEventListener('click', () => { state.view = 'home'; render(); });
 
-  // Import buttons
-  const btnImport = document.getElementById('btn-sheet-import');
-  const btnRefresh = document.getElementById('btn-sheet-refresh');
-  const btnReset = document.getElementById('btn-sheet-reset');
-  if (btnImport) btnImport.addEventListener('click', () => doImport('import'));
-  if (btnRefresh) btnRefresh.addEventListener('click', () => doImport('refresh'));
-  if (btnReset) btnReset.addEventListener('click', doResetTeams);
+  // Import panel buttons
+  const btnImport  = document.getElementById('btn-import');
+  const btnRefresh = document.getElementById('btn-refresh');
+  const btnReset   = document.getElementById('btn-reset-teams');
+  if (btnImport)  btnImport.addEventListener('click',  doImport);
+  if (btnRefresh) btnRefresh.addEventListener('click', doImport);
+  if (btnReset)   btnReset.addEventListener('click',   doResetTeams);
 
   // Score inputs
   document.querySelectorAll('.score-input').forEach(inp => {
@@ -582,7 +598,7 @@ function attach() {
     });
   });
 
-  // Team name inputs (manual edit)
+  // Manual team name edits
   document.querySelectorAll('.team-name-input').forEach(inp => {
     inp.addEventListener('blur', async () => {
       const catId = inp.dataset.catid, idx = parseInt(inp.dataset.teamidx);
@@ -592,7 +608,7 @@ function attach() {
     });
   });
 
-  // Reset buttons (per category)
+  // Per-category reset buttons
   const resetScores = document.getElementById('reset-scores');
   if (resetScores) resetScores.addEventListener('click', async () => {
     if (!confirm('Reset all scores for this category? Team names will be kept.')) return;
