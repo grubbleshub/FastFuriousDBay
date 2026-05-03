@@ -127,7 +127,9 @@
   /* TEAM EDITOR */
   .team-editor-panel{background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:20px 24px;margin-bottom:24px;}
   .team-editor-panel::before{content:'';display:block;height:2px;background:linear-gradient(90deg,var(--border-bright),transparent);margin:-20px -24px 16px;}
-  .team-count-row{display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap;}
+  .team-count-row{display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap;row-gap:10px;}
+  .count-group{display:flex;align-items:center;gap:8px;}
+  .count-divider{width:1px;height:28px;background:var(--border-bright);margin:0 4px;}
   .team-count-label{font-family:'Barlow Condensed',sans-serif;font-size:17px;color:var(--text-muted);letter-spacing:0.05em;}
   .team-count-input{width:64px;background:var(--bg3);border:1px solid var(--border-bright);border-radius:3px;color:var(--text);font-family:'Bebas Neue',sans-serif;font-size:18px;padding:5px 10px;text-align:center;outline:none;}
   .team-count-input:focus{border-color:var(--gold);}
@@ -237,14 +239,16 @@ function roundRobinMatches(n) {
 }
 
 // Build a full category data structure from a list of team names
-function buildCategory(teams) {
+function buildCategory(teams, numPoolsOverride) {
   const activeTeams = teams.filter(t => t && t !== 'TBD');
   const n = activeTeams.length;
   if (n < 2) {
     return { teams, pools: [], finals: { sf1: null, sf2: null, final: null }, advancersPerPool: 0 };
   }
 
-  const sizes = poolStructure(n);
+  // Use override if provided and valid, else auto-calculate
+  const requestedPools = numPoolsOverride && numPoolsOverride >= 1 ? Math.min(numPoolsOverride, n) : null;
+  const sizes = requestedPools ? splitPools(n, requestedPools) : poolStructure(n);
   const numPools = sizes.length;
 
   // Assign teams to pools
@@ -274,6 +278,7 @@ function buildCategory(teams) {
   return {
     teams,
     pools,
+    numPoolsOverride: numPoolsOverride || null,
     advancersPerPool,
     totalAdvancers,
     finals: {
@@ -455,7 +460,7 @@ async function doImport() {
       if (!teams || !teams.length) continue;
       // Rebuild the category with new teams, preserving any existing scores if team names match
       const existing = state.catData[cat.id];
-      const newCat = buildCategory(teams);
+      const newCat = buildCategory(teams, existing && existing.numPoolsOverride ? existing.numPoolsOverride : null);
       // Try to restore scores for matches where both team names are the same
       if (existing && existing.pools) restoreScores(newCat, existing);
       state.catData[cat.id] = newCat;
@@ -754,14 +759,38 @@ function renderFinalMatch(m, catId, accent) {
 function renderTeamEditor(d, catId, accent) {
   const teams = (d && d.teams) ? d.teams : [];
   const count = teams.filter(t=>t&&t!=='TBD').length;
+  const currentPools = (d && d.pools) ? d.pools.length : null;
+  const overrideVal = d && d.numPoolsOverride ? d.numPoolsOverride : (currentPools || '');
+  const autoLabel = count >= 2 ? `auto (${poolStructure(count).length})` : 'auto';
+
+  // Build pool count options: auto + 1 through min(count, 4)
+  const maxPools = Math.min(Math.max(count, 2), 4);
+  const poolOpts = `<option value="">Auto — ${autoLabel}</option>` +
+    Array.from({length: maxPools}, (_,i) => i+1)
+      .map(n => `<option value="${n}" ${overrideVal==n?'selected':''}>${n} pool${n>1?'s':''}</option>`)
+      .join('');
+
   return `
     <div class="team-editor-panel">
       <div class="section-label">Team Names &amp; Draw Setup</div>
       <div class="team-count-row">
-        <span class="team-count-label">Number of teams:</span>
-        <input class="team-count-input" type="number" min="2" max="16" value="${Math.max(count,2)}" id="team-count-inp">
+        <div class="count-group">
+          <span class="team-count-label">Teams:</span>
+          <input class="team-count-input" type="number" min="2" max="16" value="${Math.max(count,2)}" id="team-count-inp">
+        </div>
+        <div class="count-divider"></div>
+        <div class="count-group">
+          <span class="team-count-label">Pools:</span>
+          <select id="pool-count-sel" style="background:var(--bg3);border:1px solid var(--border-bright);border-radius:3px;color:var(--text);font-family:'Barlow Condensed',sans-serif;font-size:15px;padding:6px 10px;outline:none;cursor:pointer;min-width:130px;">
+            ${poolOpts}
+          </select>
+        </div>
         <button class="btn-rebuild" id="btn-rebuild-draw">↺ Rebuild Draw</button>
       </div>
+      ${currentPools ? `<p style="font-size:13px;color:var(--text-muted);margin-bottom:14px;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.04em;">
+        Current draw: <strong style="color:var(--text)">${currentPools} pool${currentPools>1?'s':''}</strong> · 
+        ${count} teams · Semi-finals · Final
+      </p>` : ''}
       <div class="team-inputs-grid" id="team-inputs-grid">
         ${renderTeamInputs(teams, count, catId)}
       </div>
@@ -827,13 +856,27 @@ function attach() {
     });
   });
 
-  // Team count change → update inputs only (not full rebuild)
+  // Team count change → update inputs and refresh auto pool label
   const countInp = document.getElementById('team-count-inp');
   if (countInp) {
     countInp.addEventListener('change', () => {
       const catId=state.catId, d=state.catData[catId];
       const n=Math.min(16,Math.max(2,parseInt(countInp.value)||2));
       countInp.value=n;
+      // Update the auto option label in pool selector
+      const sel=document.getElementById('pool-count-sel');
+      if(sel) {
+        const autoOpt=sel.querySelector('option[value=""]');
+        if(autoOpt) autoOpt.textContent=`Auto — auto (${poolStructure(n).length})`;
+        // Remove pool options that exceed team count, add missing ones
+        const max=Math.min(n,4);
+        // Rebuild options
+        const curVal=sel.value;
+        sel.innerHTML=`<option value="">Auto — auto (${poolStructure(n).length})</option>`+
+          Array.from({length:max},(_,i)=>i+1)
+            .map(p=>`<option value="${p}" ${curVal==p&&p<=max?'selected':''}>${p} pool${p>1?'s':''}</option>`)
+            .join('');
+      }
       const grid=document.getElementById('team-inputs-grid');
       if(grid) grid.innerHTML=renderTeamInputs(d.teams||[], n, catId);
       reattachTeamInputs();
@@ -845,12 +888,14 @@ function attach() {
   if (rebuildBtn) rebuildBtn.addEventListener('click', async () => {
     const catId=state.catId, d=state.catData[catId];
     const n=Math.min(16,Math.max(2,parseInt(document.getElementById('team-count-inp')?.value)||2));
+    const poolSelVal=document.getElementById('pool-count-sel')?.value;
+    const numPoolsOverride=poolSelVal ? parseInt(poolSelVal) : null;
     // Collect current team names from inputs
     const names=[];
     document.querySelectorAll('.team-name-input').forEach((inp,i) => {
       if(i<n) names.push(inp.value.trim()||`Team ${i+1}`);
     });
-    const newCat=buildCategory(names);
+    const newCat=buildCategory(names, numPoolsOverride);
     if(d.pools) restoreScores(newCat, d);
     state.catData[catId]=newCat;
     await saveCat(catId); toast('Draw rebuilt ✓'); render();
