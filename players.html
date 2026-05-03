@@ -102,6 +102,7 @@
   .winner-bar{height:2px;transform-origin:left;transform:scaleX(0);transition:transform 0.4s ease;}
   .winner-bar.show{transform:scaleX(1);}
 
+  .court-badge{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:0.05em;color:#111;background:var(--gold);padding:1px 7px;border-radius:2px;white-space:nowrap;}
   .finals-note{font-size:16px;color:#B0B0C0;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.06em;margin-bottom:14px;padding:8px 12px;background:rgba(245,200,66,0.04);border:1px solid rgba(245,200,66,0.1);border-radius:3px;}
   .score-hint{font-size:16px;color:var(--text-dim);padding:4px 2px;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.06em;margin-top:4px;}
   .empty-state{padding:40px 20px;text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:16px;color:#B0B0C0;letter-spacing:0.1em;}
@@ -216,12 +217,16 @@ function seedFinal(d) {
   if(d.finals.final){d.finals.final.a=sf1win;d.finals.final.b=sf2win;}
 }
 
-let state={view:'home',catId:null,tab:'standings',catData:{},loading:true};
+let state={view:'home',catId:null,tab:'standings',catData:{},courts:{},loading:true};
 
 async function init() {
   const snap=await get(ref(db,'cats'));
   const existing=snap.exists()?snap.val():{};
   for(const cat of CATEGORIES) state.catData[cat.id]=fixCatData(existing[cat.id])||null;
+
+  // Load court allocations
+  const csnap=await get(ref(db,'courts'));
+  if(csnap.exists()) state.courts=csnap.val();
 
   onValue(ref(db,'cats'),snap=>{
     if(!snap.exists()) return;
@@ -229,6 +234,13 @@ async function init() {
     for(const catId of Object.keys(data)) state.catData[catId]=fixCatData(data[catId]);
     if(!state.loading) render();
   });
+
+  // Live-listen to court allocations
+  onValue(ref(db,'courts'),snap=>{
+    state.courts=snap.exists()?snap.val():{};
+    if(!state.loading) render();
+  });
+
   state.loading=false; render();
 }
 
@@ -387,10 +399,16 @@ function renderStandings(standings, advCount) {
 function renderMatch(m, catId, accent, poolLabel) {
   const res=matchResult(m), played=res!==null;
   const aWins=played&&res.sA>res.sB, bWins=played&&res.sB>res.sA;
+  const courtKey=`${catId}__${m.id}`;
+  const court=state.courts&&state.courts[courtKey];
   return `
     <div class="match-card ${played?'has-scores':''}">
       <div class="match-meta">
-        <span>${poolLabel}</span>${played?'<span class="done-tag">Done</span>':''}
+        <span>${poolLabel}</span>
+        <span style="display:flex;align-items:center;gap:6px;">
+          ${court?`<span class="court-badge">Court ${court}</span>`:''}
+          ${played?'<span class="done-tag">Done</span>':''}
+        </span>
       </div>
       <div class="match-team">
         <span class="team-name-cell ${played?(aWins?'winner':''):''}">${m.a||'TBD'}</span>
@@ -414,11 +432,16 @@ function renderFinalMatch(m, catId, accent) {
   const res=matchResult(m), played=res!==null;
   const aWins=played&&res.sA>res.sB, bWins=played&&res.sB>res.sA;
   const isGold=m.id==='final';
+  const courtKey=`${catId}__${m.id}`;
+  const court=state.courts&&state.courts[courtKey];
   return `
     <div class="match-card finals-card ${played?'has-scores':''}">
       <div class="match-meta">
         <span style="color:${isGold?'var(--gold)':'var(--text-muted)'}">${m.label}</span>
-        ${played?'<span class="done-tag">Done</span>':''}
+        <span style="display:flex;align-items:center;gap:6px;">
+          ${court?`<span class="court-badge">Court ${court}</span>`:''}
+          ${played?'<span class="done-tag">Done</span>':''}
+        </span>
       </div>
       <div class="match-team">
         <span class="team-name-cell ${!m.a?'tbd':played?(aWins?'winner':''):''}">${m.a||'TBD — pending pool results'}</span>
